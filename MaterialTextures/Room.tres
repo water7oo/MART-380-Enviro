@@ -1,13 +1,22 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dcuvjs33ebpe3"]
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dcuvjs33ebpe3"]
 
-[ext_resource type="Texture2D" uid="uid://dl3j1ny70t032" path="res://addons/kenney_prototype_textures/orange/texture_09.png" id="1_v6veh"]
+[ext_resource type="Shader" uid="uid://m8maxetlgajn" path="res://Shaders/PS1_Player_VertexWobbling.gdshader" id="1_v6veh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5er1b"]
+render_priority = 0
+shader = ExtResource("1_v6veh")
+shader_parameter/affine_mapping = false
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.583
+shader_parameter/resolution = Vector2i(320, 240)
 
 [resource]
+next_pass = SubResource("ShaderMaterial_5er1b")
 shading_mode = 0
 diffuse_mode = 3
 specular_mode = 2
 disable_ambient_light = true
-albedo_texture = ExtResource("1_v6veh")
+albedo_color = Color(1, 0, 0, 1)
 uv1_scale = Vector3(-4.96, -4.96, -4.96)
 uv1_triplanar_sharpness = 0.233259
 texture_filter = 4
