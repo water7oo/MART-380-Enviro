@@ -99,7 +99,7 @@ func _on_dialogue_npc_area_exited(area):
 
 func _physics_process(delta: float) -> void:
 	playerGravity(delta)
-	print("Player Rotation:",(Global.camera.rotation.y))
+	print(Global.camera.global_rotation.y)
 	if Global.is_near_npc and Input.is_action_just_pressed("NPC"):
 		if Global.current_npc:
 			state_machine.dispatch("to_talk", [Global.current_npc])

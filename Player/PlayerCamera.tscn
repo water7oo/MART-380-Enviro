@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://7l5yih8w56c3"]
+[gd_scene load_steps=13 format=3 uid="uid://7l5yih8w56c3"]
 
 [ext_resource type="Script" uid="uid://b0vlvthw3ye25" path="res://Scripts/follow_cam.gd" id="1_hwm0y"]
 [ext_resource type="Shader" uid="uid://dg0o1j78d3etb" path="res://Shaders/TestingShaders3.gdshader" id="2_5olaf"]
+[ext_resource type="Script" uid="uid://be52qxeixt00c" path="res://Player/cweed.gd" id="2_ye0eu"]
 [ext_resource type="Script" uid="uid://cn6f1nyulomnm" path="res://Scripts/gameJuice.gd" id="3_sswrb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_td6vy"]
@@ -62,6 +63,7 @@ process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 0.9779, -0.209072, 0, 0.209072, 0.9779, 0, 2.01178, 0.0408238)
 current = true
 size = 5.762
+script = ExtResource("2_ye0eu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SpringArmPivot/SpringArm3D/Margin/Camera3D"]
 transform = Transform3D(2, -2.32831e-10, -5.96046e-08, 2.32831e-10, 2, 0, 0, 0, 2, 0.0447144, -0.107597, -1.45398)

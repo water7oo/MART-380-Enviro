@@ -50,15 +50,17 @@ func _process(delta: float) -> void:
 			Global.spring_arm_pivot.rotation.y = lerp_angle(Global.spring_arm_pivot.rotation.y, target_rotation, rotation_speed * delta)
 
 		# Rotate the NPC towards the player
-		npc_parent.rotation.y = lerp_angle(npc_parent.rotation_degree.y, Global.camera.rotation_degree + 360, rotation_speed * delta)
-
-		 
+		#npc_parent.rotation.y = lerp_angle(rad_to_deg(npc_parent.global_rotation.y), rad_to_deg(Global.camera.global_rotation.y) + 360, rotation_speed * delta)
+		npc_parent.global_rotation.y = Global.camera.global_rotation.y
+		
 		# Debug output
-		print("Player Rotation:", rad_to_deg(Global.camera.rotation_degree.y))
-		print("NPC Rotation:", rad_to_deg(npc_parent.rotation.y))
+		print(rad_to_deg(Global.camera.global_rotation.y))
+		#print("NPC Rotation:", rad_to_deg(npc_parent.rotation.y))
 	#else:
 		#print("npc_parent is NULL!")  # Debug output
-	
+
+
+
 
 func _exit() -> void:
 	Global.can_move = true

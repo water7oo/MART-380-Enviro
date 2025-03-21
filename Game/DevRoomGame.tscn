@@ -131,7 +131,7 @@ mouse_force_pass_scroll_events = false
 color = Color(0, 0, 0, 1)
 
 [node name="Enemy" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("9_38om4")]
-transform = Transform3D(-0.181173, 0, -0.676148, 0, 0.7, 0, 0.676148, 0, -0.181173, 65.3792, 0.762087, 12.9759)
+transform = Transform3D(-0.181173, 0, -0.676148, 0, 0.7, 0, 0.676148, 0, -0.181173, -47.2424, 0.762087, 12.9759)
 metadata/_edit_group_ = true
 
 [node name="CamTarget2" type="Marker3D" parent="Preview/SubViewportContainer/SubViewport"]
@@ -139,12 +139,12 @@ transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 7.53036, 3.74131, 20.85
 gizmo_extents = 4.42
 
 [node name="CameraSet" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("11_hq17w")]
-transform = Transform3D(-4.37114e-08, 0, 0.999999, 0, 0.999999, 0, -0.999999, 0, -4.37114e-08, 70.8565, 0.966247, 14.3488)
+transform = Transform3D(-4.37114e-08, 0, 0.999999, 0, 0.999999, 0, -0.999999, 0, -4.37114e-08, -41.7651, 0.966247, 14.3488)
 target = NodePath("../Cowboy")
 speed = 20.0
 
 [node name="Cowboy" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("10_tkxv2")]
-transform = Transform3D(-3.0598e-10, 0, 0.007, 0, 0.007, 0, -0.007, 0, -3.0598e-10, 70.8425, 0.959527, 14.3593)
+transform = Transform3D(-3.0598e-10, 0, 0.007, 0, 0.007, 0, -0.007, 0, -3.0598e-10, -41.7791, 0.959527, 14.3593)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport"]
 transform = Transform3D(37.895, 0, 0, 0, 37.895, 0, 0, 0, 37.895, -83.3652, 10.5206, 43.7061)
