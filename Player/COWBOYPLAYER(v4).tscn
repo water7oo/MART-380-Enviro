@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=4 uid="uid://bgkmd80vrnlao"]
+[gd_scene load_steps=69 format=4 uid="uid://bgkmd80vrnlao"]
 
 [ext_resource type="Script" uid="uid://cllxit7uok2xf" path="res://Player/player2.gd" id="1_vkma1"]
 [ext_resource type="Material" uid="uid://dcakvymmosyhp" path="res://MaterialTextures/COWBOY.tres" id="2_dh6mo"]
@@ -15,19 +15,17 @@
 [ext_resource type="Script" uid="uid://d02xavwj8xmcu" path="res://Player/burst.gd" id="7_1mupm"]
 [ext_resource type="Script" uid="uid://c7wq57pjqc84x" path="res://Scripts/States/RunJump.gd" id="8_ec3d6"]
 [ext_resource type="Script" uid="uid://bw7q8jcgsl3m8" path="res://Player/Crouch.gd" id="8_gexv5"]
-[ext_resource type="Script" uid="uid://bjkhaj5omhcbw" path="res://Player/Attack.gd" id="9_gu0nf"]
 [ext_resource type="AudioStream" uid="uid://cytlh7sh0m7pl" path="res://Sounds/punch-3-166696.mp3" id="10_esln5"]
 [ext_resource type="Script" uid="uid://dmlj04uny03pk" path="res://Player/takeDamege.gd" id="10_ga41d"]
-[ext_resource type="Script" uid="uid://ca7wx65llufcw" path="res://Player/attack1.gd" id="10_m03mu"]
 [ext_resource type="Script" uid="uid://dfrhd0jw7xuqs" path="res://Player/recover_state.gd" id="11_3apqd"]
 [ext_resource type="PackedScene" uid="uid://botd2e2pvg6ce" path="res://Player/COWBOY(NEW.V4).tscn" id="11_4svr5"]
 [ext_resource type="AudioStream" uid="uid://q6udxs3hkfpd" path="res://Sounds/714258__qubodup__cloud-poof.wav" id="11_brbxa"]
-[ext_resource type="Script" uid="uid://ctm3qnn5r3vif" path="res://Player/attack2.gd" id="11_ud7yb"]
+[ext_resource type="Script" uid="uid://lq0hjyygphsh" path="res://Player/talkState.gd" id="11_why3t"]
 [ext_resource type="AudioStream" uid="uid://cnmrvupfaedd3" path="res://Sounds/350905__cabled_mess__jump_c_05.wav" id="12_kxyvo"]
-[ext_resource type="Script" uid="uid://ddwqtiuympnl3" path="res://Player/attack3.gd" id="12_ud7yb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fvqnm"]
 custom_solver_bias = 0.305
+height = 2.73951
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ga41d"]
 size = Vector3(1.11932, 0.604126, 1.87061)
@@ -4176,14 +4174,30 @@ _data = {
 &"WALK": SubResource("Animation_7hgkg")
 }
 
-[node name="Cowboy" type="CharacterBody3D" groups=["player"]]
+[sub_resource type="BoxShape3D" id="BoxShape3D_3apqd"]
+
+[node name="Cowboy" type="CharacterBody3D" node_paths=PackedStringArray("state_machine", "idle_state", "walk_state", "jump_state", "run_state", "runJump_state", "burst_state", "crouch_state", "groundDive_state", "airDive_state", "slide_state", "talk_state", "take_damage_state", "recover_state") groups=["player"]]
 transform = Transform3D(0.002, 0, 0, 0, 0.002, 0, 0, 0, 0.002, 0, 0, 0)
 wall_min_slide_angle = 0.0
 script = ExtResource("1_vkma1")
+state_machine = NodePath("LimboHSM")
+idle_state = NodePath("LimboHSM/IdleState")
+walk_state = NodePath("LimboHSM/WalkState")
+jump_state = NodePath("LimboHSM/JumpState")
+run_state = NodePath("LimboHSM/RunState")
+runJump_state = NodePath("LimboHSM/RunJumpState")
+burst_state = NodePath("LimboHSM/BurstState")
+crouch_state = NodePath("LimboHSM/CrouchState")
+groundDive_state = NodePath("LimboHSM/GroundDiveState")
+airDive_state = NodePath("LimboHSM/AirDiveState")
+slide_state = NodePath("LimboHSM/SlideState")
+talk_state = NodePath("LimboHSM/TalkState")
+take_damage_state = NodePath("LimboHSM/TakeDamageState")
+recover_state = NodePath("LimboHSM/RecoverState")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
 process_mode = 3
-transform = Transform3D(200, 0, 1.2919e-12, 0, 200, 0, -1.2919e-12, 0, 200, -0.00771429, 174.994, 0.0540649)
+transform = Transform3D(250, 0, 1.61487e-12, 0, 250, 0, -1.61487e-12, 0, 250, -0.00771429, 282.023, 0.0540649)
 shape = SubResource("CapsuleShape3D_fvqnm")
 debug_color = Color(4.04298e-06, 0.588061, 0.758272, 1)
 debug_fill = false
@@ -4222,36 +4236,25 @@ script = ExtResource("8_gexv5")
 
 [node name="SlideState" type="LimboState" parent="LimboHSM"]
 
-[node name="AttackState" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("attack_box")]
-script = ExtResource("9_gu0nf")
-attack_box = NodePath("../../RootNode/AttackBox")
-
-[node name="Attack1" type="LimboState" parent="LimboHSM/AttackState" node_paths=PackedStringArray("attack_box")]
-script = ExtResource("10_m03mu")
-attack_box = NodePath("../../../RootNode/AttackBox")
-
-[node name="Attack2" type="LimboState" parent="LimboHSM/AttackState" node_paths=PackedStringArray("attack_box")]
-script = ExtResource("11_ud7yb")
-attack_box = NodePath("../../../RootNode/AttackBox")
-
-[node name="Attack3" type="LimboState" parent="LimboHSM/AttackState" node_paths=PackedStringArray("attack_box")]
-script = ExtResource("12_ud7yb")
-attack_box = NodePath("../../../RootNode/AttackBox")
-
 [node name="TakeDamageState" type="LimboState" parent="LimboHSM"]
 script = ExtResource("10_ga41d")
 
 [node name="RecoverState" type="LimboState" parent="LimboHSM"]
 script = ExtResource("11_3apqd")
 
+[node name="TalkState" type="LimboState" parent="LimboHSM"]
+script = ExtResource("11_why3t")
+
 [node name="RootNode" type="Node3D" parent="."]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 
 [node name="COWBOYPLAYER_V4" parent="RootNode" instance=ExtResource("11_4svr5")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+visible = false
 
 [node name="AttackBox" type="Area3D" parent="RootNode"]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RootNode/AttackBox"]
 transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, -0.654958, 157.261, -266.83)
@@ -4259,6 +4262,7 @@ shape = SubResource("BoxShape3D_ga41d")
 
 [node name="HurtBox" type="Area3D" parent="RootNode" groups=["player"]]
 transform = Transform3D(-0.025, 0, 2.18557e-09, 0, 0.025, 0, -2.18557e-09, 0, -0.025, 0, 0, 0)
+visible = false
 script = ExtResource("5_vjco1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RootNode/HurtBox"]
@@ -4570,13 +4574,11 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="player_health_label" type="ProgressBar" parent="."]
-visible = false
-z_index = 1
 texture_filter = 3
 offset_left = 2.0
-offset_top = 378.0
+offset_top = 667.0
 offset_right = 106.0
-offset_bottom = 401.0
+offset_bottom = 690.0
 scale = Vector2(4.50153, 1.20149)
 theme_override_styles/background = ExtResource("5_t0q8v")
 theme_override_styles/fill = SubResource("StyleBoxFlat_gsih2")
@@ -4584,13 +4586,12 @@ step = 1.0
 show_percentage = false
 
 [node name="UI Cooldowns" parent="." instance=ExtResource("4_2qm3m")]
-visible = false
 z_index = 1
 texture_filter = 1
 offset_left = 2.0
-offset_top = 362.0
+offset_top = 651.0
 offset_right = 362.0
-offset_bottom = 370.0
+offset_bottom = 659.0
 theme_override_styles/background = ExtResource("5_t0q8v")
 theme_override_styles/fill = ExtResource("5_ucyed")
 value = 50.0
@@ -4617,7 +4618,14 @@ libraries = {
 &"": SubResource("AnimationLibrary_vsafk")
 }
 
+[node name="DialogueNPC" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueNPC"]
+transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, 0, 116.511, 0)
+shape = SubResource("BoxShape3D_3apqd")
+
 [connection signal="area_entered" from="RootNode/AttackBox" to="." method="_on_attack_box_area_entered"]
 [connection signal="area_exited" from="RootNode/AttackBox" to="." method="_on_attack_box_area_exited"]
 [connection signal="area_entered" from="RootNode/HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_exited" from="RootNode/HurtBox" to="." method="_on_hurt_box_area_exited"]
+[connection signal="area_entered" from="DialogueNPC" to="." method="_on_dialogue_npc_area_entered"]

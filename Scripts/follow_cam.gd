@@ -16,8 +16,8 @@ var is_mouse_visible: bool = true
 @export var period: float = .04
 @export var magnitude: float = 0.08
 
-var y_cam_rot_dist: float = -80
-var x_cam_rot_dist: float = 1
+@export var y_cam_rot_dist: float = -80
+@export var x_cam_rot_dist: float = 1
 
 var original_global_transform: Transform3D
 var target_node: Node3D
@@ -44,7 +44,7 @@ func _unhandled_input(event):
 		is_mouse_visible = !is_mouse_visible
 		
 
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion && Global.is_talking == false:
 		var rotation_x = spring_arm_pivot.rotation.x - event.relative.y * mouse_sensitivity
 		var rotation_y = spring_arm_pivot.rotation.y - event.relative.x * mouse_sensitivity
 		

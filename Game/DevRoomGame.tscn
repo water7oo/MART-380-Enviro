@@ -1,37 +1,31 @@
-[gd_scene load_steps=19 format=3 uid="uid://b2ud3ury8epgi"]
+[gd_scene load_steps=14 format=3 uid="uid://b2ud3ury8epgi"]
 
 [ext_resource type="AudioStream" uid="uid://ckd1rwa7lgc8e" path="res://sfx_music_main (1).mp3" id="1_8mhp7"]
 [ext_resource type="Environment" uid="uid://cadv2uehcxqkc" path="res://MaterialTextures/NewGame.tres" id="1_c0qo6"]
 [ext_resource type="Material" uid="uid://dcuvjs33ebpe3" path="res://MaterialTextures/Room.tres" id="1_ewgn2"]
 [ext_resource type="Shader" uid="uid://ck3hfip8j04ns" path="res://Game/1BIT_SHADER.gdshader" id="3_8mhp7"]
-[ext_resource type="PackedScene" uid="uid://04h1w2ualr2c" path="res://Buildings/buildings_2TEXTURED.tscn" id="4_4nbnq"]
-[ext_resource type="Texture2D" uid="uid://cw62ygditxxqv" path="res://addons/kenney_prototype_textures/light/texture_01.png" id="4_nf6kx"]
 [ext_resource type="PackedScene" uid="uid://byiwrnoah113n" path="res://ui/GameStartANIM.tscn" id="4_rsb4y"]
 [ext_resource type="PackedScene" uid="uid://brejidgy2nq2j" path="res://ui/Pausing.tscn" id="4_x187o"]
-[ext_resource type="PackedScene" uid="uid://cqejntrjmuni3" path="res://Blender/gameboy.fbx" id="6_xmu7k"]
 [ext_resource type="Shader" uid="uid://b1hg6btlggl78" path="res://Shaders/uhhhhh.gdshader" id="7_kt4n2"]
-[ext_resource type="PackedScene" uid="uid://7t3cgm7n3oql" path="res://Blender/DoughnutNew_Group.fbx" id="8_td47c"]
 [ext_resource type="PackedScene" uid="uid://bl275sfu3mmds" path="res://Enemy/Enemy2.tscn" id="9_38om4"]
 [ext_resource type="PackedScene" uid="uid://bgkmd80vrnlao" path="res://Player/COWBOYPLAYER(v4).tscn" id="10_tkxv2"]
 [ext_resource type="PackedScene" uid="uid://7l5yih8w56c3" path="res://Player/PlayerCamera.tscn" id="11_hq17w"]
-[ext_resource type="PackedScene" uid="uid://1a3nqo3sadnt" path="res://Blender/3Ds.fbx" id="13_6d680"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ov31c"]
 shader = ExtResource("3_8mhp7")
 shader_parameter/dithering = true
-shader_parameter/dithering_size = 6
+shader_parameter/dithering_size = 9
 shader_parameter/resolution_scale = 2
 shader_parameter/threshold = 43.99
 shader_parameter/white = Color(1, 1, 1, 1)
-shader_parameter/black = Color(0, 0, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u5snt"]
-albedo_texture = ExtResource("4_nf6kx")
+shader_parameter/black = Color(0.295867, 0.295866, 0.295866, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_md3uv"]
 shader = ExtResource("7_kt4n2")
 shader_parameter/speedScale = 50.875
 shader_parameter/clipPosition = 0.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_mlbvo"]
 
 [node name="TRAINING" type="Node3D"]
 
@@ -39,13 +33,24 @@ shader_parameter/clipPosition = 0.2
 stream = ExtResource("1_8mhp7")
 volume_db = -13.823
 
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.115836, -0.236257, 0.964762, 0.337617, 0.922834, 0.185452, -0.934129, 0.304238, 0.186661, -69.2595, -7.29807, 11.6902)
+light_energy = 16.0
+shadow_enabled = true
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 9.50051, 0)
-light_indirect_energy = 2.863
+transform = Transform3D(0.0504923, -0.016445, -0.998589, 0.949499, -0.309244, 0.053103, -0.309681, -0.950841, 2.06054e-08, -50.353, 9.18184, 12.579)
+light_energy = 7.356
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_c0qo6")
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(-0.505, 0, 0, 0, -0.505, 0, 0, 0, -0.505, 68.2511, 0, 13.6196)
+visible = false
+size = Vector3(204.868, 100, 100)
+shape = 0
 
 [node name="Preview" type="Control" parent="."]
 layout_mode = 3
@@ -76,113 +81,40 @@ canvas_item_default_texture_filter = 0
 size = Vector2i(1024, 768)
 render_target_update_mode = 4
 
-[node name="Buildings2" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("4_4nbnq")]
-transform = Transform3D(1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 62.4725, 3.58815, 4.38812)
-
-[node name="Buildings3" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("4_4nbnq")]
-transform = Transform3D(1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 62.4725, 3.58815, -48.4812)
-
-[node name="gameboy" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("6_xmu7k")]
-transform = Transform3D(14.1544, -0.668968, 11.1241, -0.373483, 17.9439, 1.55431, -11.138, -1.45184, 14.0847, -29.7377, -2.76367, -47.2698)
-
-[node name="3Ds" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("13_6d680")]
-transform = Transform3D(3.325, 0, 0, 0, 3.04088, -1.34487, 0, 1.34487, 3.04088, 20.3785, 1.0347, -47.2698)
-
-[node name="DoughnutNew_Group3" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("8_td47c")]
-transform = Transform3D(0.340833, 0, 2.28876, 0, 2.314, 0, -2.28876, 0, 0.340833, 60.6245, 4.72951, -9.21935)
-
-[node name="DoughnutNew_Group2" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("8_td47c")]
-transform = Transform3D(-1.20804, 0, -1.04147, 0, 1.595, 0, 1.04147, 0, -1.20804, 59.4448, 4.40591, -36.2573)
-
-[node name="DoughnutNew_Group" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("8_td47c")]
-transform = Transform3D(2.18899, 0, -0.882009, 0, 2.36, 0, 0.882009, 0, 2.18899, -35.1891, 2.00671, -1.63694)
-
 [node name="Floor" type="CSGCombiner3D" parent="Preview/SubViewportContainer/SubViewport"]
-transform = Transform3D(-3.40497e-08, -35.6877, 0, 0.778967, -1.55995e-06, 0, 0, 0, 44.9384, 0, 1.15208, 10)
+transform = Transform3D(-3.40497e-08, -35.6877, 0, 0.778967, -1.55995e-06, 0, 0, 0, 17.9162, 0, 1.15208, 10)
 material_overlay = ExtResource("1_ewgn2")
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 
 [node name="MeshInstance3D" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(11.342, 7.11225e-10, 0, 1.77636e-15, 9.38252, 0, 0, 0, 8.72365, -4.85705, -0.569923, -0.345418)
-size = Vector3(0.766698, 0.425964, 0.271454)
+transform = Transform3D(11.342, 8.29459e-10, 0, 1.77636e-15, 9.38252, 0, 0, 0, 8.72365, -4.85705, -0.569923, 0.0766474)
+size = Vector3(0.766698, 0.425964, 0.368217)
 
-[node name="MeshInstance3D4" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.39158e-09, -1.77944e-07, 4.014, 0.00319167, -1.12415e-08, -8.03841e-06, 5.20006e-10, 0.069, 1.03517e-05, 2.06665, -0.696467, 0.176726)
-size = Vector3(35.2607, 1.13229, 0.296907)
+[node name="MeshInstance3D18" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(0.225, 6.92727e-05, 1.65759e-08, 1.17091e-06, -0.0040303, 0.224965, 6.77566e-05, -0.229965, -0.00394269, 6.5667, -2.28503, 0.123383)
+size = Vector3(129.975, 4.75217, 1.29268)
 
-[node name="MeshInstance3D11" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.39158e-09, -1.77944e-07, 4.014, 0.00319167, -1.12415e-08, -8.03841e-06, 5.20006e-10, 0.069, 1.03517e-05, 0.887371, -0.696467, 0.0876037)
-size = Vector3(35.2607, 1.13229, 0.296907)
-metadata/_edit_group_ = true
+[node name="MeshInstance3D19" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(0.752089, 0.549348, 0.0036489, -0.000228085, 0.538947, 0.0132417, 5.4764e-06, -0.00944392, 0.752088, 26.4622, -0.829645, 0.133146)
+size = Vector3(18.2343, 6.32811, 1.4822)
 
-[node name="MeshInstance3D7" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.39158e-09, -1.77944e-07, 4.014, 0.00319167, -1.12415e-08, -8.03841e-06, 5.20006e-10, 0.069, 1.03517e-05, 3.21244, -0.696467, 0.296335)
-size = Vector3(35.2607, 1.13229, 0.296907)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D8" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.39158e-09, -1.77944e-07, 4.014, 0.00319167, -1.12415e-08, -8.03841e-06, 5.20006e-10, 0.069, 1.03517e-05, 4.0658, -0.827254, 0.355789)
-size = Vector3(35.2607, 1.13229, 0.296907)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D9" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.39158e-09, -1.77944e-07, 4.014, 0.00319167, -1.12415e-08, -8.03841e-06, 5.20006e-10, 0.069, 1.03517e-05, 4.0658, -0.995734, 0.355789)
-size = Vector3(35.2607, 1.13229, 0.296907)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D10" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.39158e-09, -1.77944e-07, 4.014, 0.00319167, -1.12415e-08, -8.03841e-06, 5.20006e-10, 0.069, 1.03517e-05, 5.45167, -1.19871, 0.278041)
-size = Vector3(76.5456, 3.38586, 0.296907)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D12" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.39158e-09, -1.77944e-07, 4.014, 0.00319167, -1.12415e-08, -8.03841e-06, 5.20006e-10, 0.069, 1.03517e-05, 2.50579, -1.52618, 0.278054)
-size = Vector3(76.5456, 3.38586, 2.71964)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D13" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.39158e-09, -1.77944e-07, 4.014, 0.00319167, -1.12415e-08, -8.03841e-06, 5.20006e-10, 0.069, 1.03517e-05, 2.50579, -1.70571, -0.0548011)
-size = Vector3(189.042, 3.38586, 2.71964)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D6" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.39158e-09, -1.77944e-07, 4.014, 0.00319167, -1.12415e-08, -8.03841e-06, 5.20006e-10, 0.069, 1.03517e-05, -1.31426, -0.906931, -0.413)
-size = Vector3(49.6816, 1.13229, 2.06354)
-
-[node name="MeshInstance3D14" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.39159e-09, -1.77944e-07, 4.014, 0.00319167, -1.12415e-08, -8.03841e-06, 5.20006e-10, 0.069, 1.03517e-05, -0.59299, -0.906933, -0.259388)
-size = Vector3(49.6816, 1.03659, 1.70416)
-
-[node name="MeshInstance3D15" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.39158e-09, -1.77944e-07, 4.014, 0.00319167, -1.12415e-08, -8.03841e-06, 5.20006e-10, 0.069, 1.03517e-05, -0.60377, -0.906933, -0.12162)
-size = Vector3(49.6816, 1.06332, 1.70953)
-
-[node name="MeshInstance3D16" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.39158e-09, -1.77944e-07, 4.014, 0.00319167, -1.12415e-08, -8.03841e-06, 5.20006e-10, 0.069, 1.03517e-05, -0.837005, -0.906932, 0.036904)
-size = Vector3(49.6816, 1.25729, 1.82574)
-
-[node name="MeshInstance3D5" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(3.5273e-08, -1.82578e-06, 42.6991, 0.0176137, 0.0128655, -5.33243e-08, -0.000308672, 0.734131, -1.46525e-06, 7.99783, 1.21721, -0.342705)
-size = Vector3(6.12671, 3.23376, 0.567047)
+[node name="MeshInstance3D22" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(0.752089, 0.549348, 0.0036489, -0.000228085, 0.538947, 0.0132417, 5.4764e-06, -0.00944392, 0.752088, 26.4622, -0.829645, 1.3091)
+size = Vector3(18.2343, 6.32811, 1.4822)
 
 [node name="MeshInstance3D17" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.18164e-10, -3.32171e-06, 42.6991, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 0.477994, -0.197749, 0.694697)
-size = Vector3(18.2343, 3.23376, 0.172195)
+transform = Transform3D(6.18164e-10, -3.32171e-06, 42.6991, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 18.7111, -0.755139, 0.704501)
+size = Vector3(18.2343, 4.75217, 1.02622)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(0.355, -1.64846e-12, 1.58821e-09, -1.77994e-12, 0.354999, 0.000793077, -1.58821e-09, -0.000793077, 0.354999, 0.527902, -0.240714, -0.392755)
-material_overlay = SubResource("StandardMaterial3D_u5snt")
-size = Vector3(27.8148, 0.306772, 0.229263)
+[node name="MeshInstance3D21" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(6.18164e-10, -3.32171e-06, 42.6991, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 18.7111, -0.0564563, 1.75858)
+size = Vector3(18.2343, 2.84874, 1.02622)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(0.605, -2.84217e-12, 2.70666e-09, -3.0333e-12, 0.604999, 0.00135158, -2.70666e-09, -0.00135158, 0.604998, -3.06741, -0.770612, -0.562143)
-size = Vector3(14.7093, 1.15973, 0.149689)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(0.605, -2.84217e-12, 2.70666e-09, -3.0333e-12, 0.604999, 0.00135158, -2.70666e-09, -0.00135158, 0.604998, -1.95571, -0.770612, -0.687032)
-size = Vector3(14.7093, 1.15973, 0.149689)
+[node name="MeshInstance3D20" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(6.18164e-10, -3.32171e-06, 42.6991, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 18.7111, -0.755139, -0.452181)
+size = Vector3(18.2343, 4.75217, 1.02622)
 
 [node name="Pausing" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("4_x187o")]
 
@@ -199,17 +131,33 @@ mouse_force_pass_scroll_events = false
 color = Color(0, 0, 0, 1)
 
 [node name="Enemy" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("9_38om4")]
-transform = Transform3D(0.7, 0, 1.22391e-07, 0, 0.7, 0, -1.22391e-07, 0, 0.7, 1.4635, 0.762087, -2.95968)
+transform = Transform3D(-0.181173, 0, -0.676148, 0, 0.7, 0, 0.676148, 0, -0.181173, 65.3792, 0.762087, 12.9759)
 metadata/_edit_group_ = true
 
 [node name="CamTarget2" type="Marker3D" parent="Preview/SubViewportContainer/SubViewport"]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 7.53036, 3.74131, 8.49949)
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 7.53036, 3.74131, 20.8522)
 gizmo_extents = 4.42
 
-[node name="Cowboy" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("10_tkxv2")]
-transform = Transform3D(0.007, 0, 0, 0, 0.007, 0, 0, 0, 0.007, 1.49479, 0.959527, 2.00658)
-
-[node name="CameraSet" parent="Preview/SubViewportContainer/SubViewport/Cowboy" instance=ExtResource("11_hq17w")]
-transform = Transform3D(142.857, 0, 0, 0, 142.857, 0, 0, 0, 142.857, 2195.85, -15.5618, 2572.84)
-target = NodePath("..")
+[node name="CameraSet" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("11_hq17w")]
+transform = Transform3D(-4.37114e-08, 0, 0.999999, 0, 0.999999, 0, -0.999999, 0, -4.37114e-08, 70.8565, 0.966247, 14.3488)
+target = NodePath("../Cowboy")
 speed = 20.0
+
+[node name="Cowboy" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("10_tkxv2")]
+transform = Transform3D(-3.0598e-10, 0, 0.007, 0, 0.007, 0, -0.007, 0, -3.0598e-10, 70.8425, 0.959527, 14.3593)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(37.895, 0, 0, 0, 37.895, 0, 0, 0, 37.895, -83.3652, 10.5206, 43.7061)
+mesh = SubResource("SphereMesh_mlbvo")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(14.7, 0, 0, 0, 14.7, 0, 0, 0, 14.7, -164.089, 21.73, -59.1076)
+mesh = SubResource("SphereMesh_mlbvo")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(31.415, 0, 0, 0, 31.415, 0, 0, 0, 31.415, -121.202, 18.0819, 106.553)
+mesh = SubResource("SphereMesh_mlbvo")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(22.685, 0, 0, 0, 22.685, 0, 0, 0, 22.685, -121.202, -1.58529, -15.5192)
+mesh = SubResource("SphereMesh_mlbvo")

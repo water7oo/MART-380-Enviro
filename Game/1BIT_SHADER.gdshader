@@ -1,9 +1,9 @@
 shader_type canvas_item;
 
 uniform bool dithering = true;
-uniform int dithering_size = 10;
+uniform int dithering_size = 9;
 uniform int resolution_scale = 2;
-uniform float threshold = 60.0;
+uniform float threshold = 43.99;
 uniform vec4 white: source_color = vec4(1,1,1,1);
 uniform vec4 black: source_color = vec4(0,0,0,1);
 

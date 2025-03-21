@@ -1,12 +1,14 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://t18do042j80c"]
 
-[ext_resource type="Texture2D" uid="uid://cvlifsakrek6n" path="res://addons/kenney_prototype_textures/dark/texture_06.png" id="1_qcmih"]
+[ext_resource type="Texture2D" uid="uid://c2u2x35i4lrm0" path="res://My Textures/bayer2tile16 (1).png" id="1_42l6y"]
 
 [resource]
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = ExtResource("1_qcmih")
+albedo_texture = ExtResource("1_42l6y")
 metallic_specular = 0.0
 roughness = 0.0
+uv1_scale = Vector3(-0.015, -0.015, -0.015)
 uv1_triplanar = true
 uv1_world_triplanar = true
+texture_filter = 0

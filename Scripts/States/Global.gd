@@ -8,13 +8,15 @@ extends Node
 
 var global_data = GlobalResource.new()
 @export var CUSTOM_GRAVITY: float = 35.0
-var camera = preload("res://Player/PlayerCamera.tscn").instantiate()
+var camera: Node3D = preload("res://Player/PlayerCamera.tscn").instantiate()
 var spring_arm_pivot = camera.get_node("SpringArmPivot")
 var spring_arm = camera.get_node("SpringArmPivot/SpringArm3D")
-
-var current_blend_amount = 0.0
-var target_blend_amount = 0.0
-var blend_lerp_speed = 10.0  
+var is_talking: bool = false
+var current_blend_amount: float = 0.0
+var target_blend_amount: float = 0.0
+var blend_lerp_speed: float = 10.0 
+var is_near_npc: bool = false
+var current_npc: Node3D = null
 
 @export var mouse_sensitivity: float = 0.005
 
