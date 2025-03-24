@@ -18,6 +18,7 @@ extends CharacterBody3D
 
 var talkNPC = Input.is_action_pressed("NPC")
 
+
 func _ready():
 	initialize_state_machine()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -30,6 +31,7 @@ func initialize_state_machine():
 	state_machine.add_transition(state_machine.ANYSTATE, jump_state, "to_jump")
 	state_machine.add_transition(state_machine.ANYSTATE, take_damage_state, "to_damaged")
 	state_machine.add_transition(state_machine.ANYSTATE, talk_state, "to_talk")
+	state_machine.add_transition(talk_state, idle_state, "to_idle")
 	
 	
 	
@@ -94,15 +96,18 @@ func _on_dialogue_npc_area_entered(area):
 
 func _on_dialogue_npc_area_exited(area):
 	if area.name == "DialogueNPC":
-		print("Exiting DialogueNPC Area")
-		Global.is_near_npc = false  # Reset the flag when leaving the area
+		print("entering dialogue htibox")
+		Global.is_near_npc = true  # Reset the flag when leaving the area
+	else:
+		Global.is_near_npc = false
 
 func _physics_process(delta: float) -> void:
 	playerGravity(delta)
-	print(Global.camera.global_rotation.y)
-	if Global.is_near_npc and Input.is_action_just_pressed("NPC"):
-		if Global.current_npc:
-			state_machine.dispatch("to_talk", [Global.current_npc])
-		else:
-			state_machine.dispatch("to_talk")
-		print("Talking to NPC")
+	
+	
+	if Global.is_near_npc == true and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			if Global.current_npc:
+				print("Talking to NPC")
+				state_machine.dispatch("to_talk", [Global.current_npc])  # Enter talk state
+			else:
+				state_machine.dispatch("to_talk")

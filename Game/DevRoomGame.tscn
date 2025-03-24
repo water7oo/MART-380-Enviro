@@ -73,6 +73,7 @@ stretch = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Opener" parent="Preview/SubViewportContainer" instance=ExtResource("4_rsb4y")]
+z_index = 1
 
 [node name="SubViewport" type="SubViewport" parent="Preview/SubViewportContainer"]
 handle_input_locally = false

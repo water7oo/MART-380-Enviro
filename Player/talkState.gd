@@ -4,65 +4,49 @@ extends LimboState
 @export var animation: StringName
 @onready var state_machine: LimboHSM = $LimboHSM
 
-@onready var playerCharScene = $"../../RootNode/COWBOYPLAYER_V4"
-@onready var animationTree = playerCharScene.find_child("AnimationTree", true)
+# Store references to the NPC and dialogue UI
+var npc_parent: Node3D = null
+# Rotation smoothing variables
+var rotation_speed: float = 4.0   
+var return_speed: float = 1.5    
+var previous_rotation: Quaternion
+var target_rotation: Quaternion
 
-# Variables for rotation smoothing
-var target_rotation: float = 0.0
-var npc_target_rotation: float = 0.0
-var rotation_speed: float = 5.0  # Adjust for smoother or faster rotation
 
-# Reference to the NPC
-var npc_parent: Node3D
-
-var camera: Camera3D = %Camera3D
-
-func _enter() -> void:
+func _enter(npc: Node3D = null, dialogue: Control = null) -> void:
 	print("Current State:", agent.state_machine.get_active_state())
+	print("Entering Talk State")
+
 	Global.can_move = false
 	Global.is_talking = true
 
-	# Retrieve and cast the NPC reference
-	npc_parent = Global.current_npc as Node3D  # Explicitly cast
+	# Store references passed from player2.gd
+	npc_parent = Global.current_npc as Node3D
 
 	if npc_parent:
-		# Get target direction towards the NPC
-		var direction_to_npc = (npc_parent.global_transform.origin - agent.global_transform.origin).normalized()
-		target_rotation = atan2(-direction_to_npc.x, -direction_to_npc.z)
+		# Store the NPC's original rotation
+		previous_rotation = npc_parent.global_transform.basis.get_rotation_quaternion()
 
-		# Get target direction towards the player for NPC rotation
-		var direction_to_player = (agent.global_transform.origin - npc_parent.global_transform.origin).normalized()
-		npc_target_rotation = atan2(-direction_to_player.x, -direction_to_player.z)
-
-		print("Rotating Player and NPC towards each other")
-	else:
-		print("No valid NPC reference found!")
-
+		# Make the NPC face the player
+		npc_parent.look_at(agent.global_transform.origin, Vector3.UP)
+		npc_parent.rotate_y(PI)  
+		target_rotation = npc_parent.global_transform.basis.get_rotation_quaternion()
+		
+		DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/main.dialogue"), "Start")
 
 
 func _process(delta: float) -> void:
-	# Check if the NPC and pivot exist before accessing rotation
-	if npc_parent != null:
-		agent.rotation.y = lerp_angle(agent.rotation.y, target_rotation, rotation_speed * delta)
-
-		# Rotate the spring arm pivot safely
-		if Global.spring_arm_pivot != null:
-			Global.spring_arm_pivot.rotation.y = lerp_angle(Global.spring_arm_pivot.rotation.y, target_rotation, rotation_speed * delta)
-
-		# Rotate the NPC towards the player
-		#npc_parent.rotation.y = lerp_angle(rad_to_deg(npc_parent.global_rotation.y), rad_to_deg(Global.camera.global_rotation.y) + 360, rotation_speed * delta)
-		npc_parent.global_rotation.y = Global.camera.global_rotation.y
-		
-		# Debug output
-		print(rad_to_deg(Global.camera.global_rotation.y))
-		#print("NPC Rotation:", rad_to_deg(npc_parent.rotation.y))
-	#else:
-		#print("npc_parent is NULL!")  # Debug output
-
-
-
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && Global.is_talking == true:
+			print("leaving talking state")
+			agent.state_machine.dispatch("to_idle")
 
 func _exit() -> void:
 	Global.can_move = true
 	Global.is_talking = false
-	pass
+	# Reset NPC rotation
+	if npc_parent:
+		var tween := create_tween()
+		tween.tween_property(npc_parent, "global_transform:basis", Basis(previous_rotation), return_speed) \
+			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	# Clear references
+	npc_parent = null

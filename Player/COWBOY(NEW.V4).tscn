@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://botd2e2pvg6ce"]
+[gd_scene load_steps=4 format=3 uid="uid://botd2e2pvg6ce"]
 
 [ext_resource type="PackedScene" uid="uid://ce3emrnfl1nuy" path="res://Player/COWBOYPLAYER_V4.blend" id="1_g7xsl"]
 [ext_resource type="Material" uid="uid://dcakvymmosyhp" path="res://MaterialTextures/COWBOY.tres" id="2_qhor5"]
-[ext_resource type="PackedScene" uid="uid://bqgjb8xjd76lj" path="res://Player/blood_katana.tscn" id="4_0ur36"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://ccqgr0tb8ublp" path="res://Animations/cowboy2ndPassTree.tres" id="11_fvafx"]
 
 [node name="COWBOYPLAYER_V4" groups=["player"] instance=ExtResource("1_g7xsl")]
@@ -58,18 +57,5 @@ bones/24/rotation = Quaternion(-0.0129923, 0.813266, -0.581659, -0.0101566)
 bones/25/position = Vector3(-8.05508e-07, 32.304, 5.43798e-06)
 bones/25/rotation = Quaternion(0.315723, 0.321196, -0.114527, 0.885458)
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature_001/Skeleton3D" index="0"]
-transform = Transform3D(0.0935638, -0.267928, 0.958885, -0.300418, -0.925816, -0.229374, 0.949207, -0.266605, -0.167113, -29.2535, 125.162, -8.01444)
-bone_name = "mixamorig_RightForeArm"
-bone_idx = 13
-
-[node name="BloodKatana" parent="Armature_001/Skeleton3D/BoneAttachment3D" index="0" instance=ExtResource("4_0ur36")]
-transform = Transform3D(21.3403, 116.038, 18.9752, 18.0004, -22.2821, 116.016, 116.193, -17.8599, -21.458, -22.6214, 45.7165, -19.2716)
-visible = false
-
-[node name="MORI_003" parent="Armature_001/Skeleton3D" index="1"]
+[node name="MORI_003" parent="Armature_001/Skeleton3D" index="0"]
 material_override = ExtResource("2_qhor5")
-
-[node name="BloodKatana" parent="." index="3" instance=ExtResource("4_0ur36")]
-transform = Transform3D(0.39987, -2.62325e-08, 0.916572, -0.916572, -4.00646e-08, 0.39987, 2.62325e-08, -1, -4.00646e-08, 0.475807, 0.739369, 0)
-visible = false
