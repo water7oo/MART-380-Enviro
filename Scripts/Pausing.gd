@@ -27,3 +27,7 @@ func pause_game(delta):
 				$PAUSEMENU.visible = true
 				game_paused = true
 				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+
+func _on_area_3d_area_entered(area):
+	pass # Replace with function body.

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4ho6ioov35w2"]
+
+[ext_resource type="PackedScene" uid="uid://bvte0ot6uglse" path="res://Blender/c91a83ef237948fea3f49a9bfb12c2f0.fbx" id="1_p0e3x"]
+
+[node name="c91a83ef237948fea3f49a9bfb12c2f0" instance=ExtResource("1_p0e3x")]
+
+[node name="Plane005" parent="." index="0"]
+transform = Transform3D(2.87, 0, 0, 0, 2.87, -4.67582e-07, 0, 4.67582e-07, 2.87, 8.52394e-05, 4.70409, -0.155584)

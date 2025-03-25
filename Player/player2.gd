@@ -31,7 +31,6 @@ func initialize_state_machine():
 	state_machine.add_transition(state_machine.ANYSTATE, jump_state, "to_jump")
 	state_machine.add_transition(state_machine.ANYSTATE, take_damage_state, "to_damaged")
 	state_machine.add_transition(state_machine.ANYSTATE, talk_state, "to_talk")
-	state_machine.add_transition(talk_state, idle_state, "to_idle")
 	
 	
 	
@@ -88,26 +87,21 @@ func _on_attack_box_area_exited(area):
 
 
 func _on_dialogue_npc_area_entered(area):
-	if area.name == "DialogueNPC":
-		print("Entering DialogueNPC Area")
-		Global.is_near_npc = true  
-		Global.current_npc = area.get_parent() as Node3D # Store the parent NPC reference
+	if area.name == "DialogueNPC" && !Global.is_talking:
+		print("Entered NPC Area")
+		Global.is_near_npc = true
+		Global.current_npc = area.get_parent() as Node3D
 
 
 func _on_dialogue_npc_area_exited(area):
 	if area.name == "DialogueNPC":
-		print("entering dialogue htibox")
-		Global.is_near_npc = true  # Reset the flag when leaving the area
-	else:
+		print("Exited NPC Area")
 		Global.is_near_npc = false
+		Global.current_npc = null  # Clear the NPC reference
+
 
 func _physics_process(delta: float) -> void:
 	playerGravity(delta)
+
+	#print(Global.is_near_npc)
 	
-	
-	if Global.is_near_npc == true and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-			if Global.current_npc:
-				print("Talking to NPC")
-				state_machine.dispatch("to_talk", [Global.current_npc])  # Enter talk state
-			else:
-				state_machine.dispatch("to_talk")

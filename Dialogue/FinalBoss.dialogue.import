@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://jfj2vafbsduu"
+path="res://.godot/imported/FinalBoss.dialogue-5d18650008b96ab0bde060f7be89e767.tres"
+
+[deps]
+
+source_file="res://Dialogue/FinalBoss.dialogue"
+dest_files=["res://.godot/imported/FinalBoss.dialogue-5d18650008b96ab0bde060f7be89e767.tres"]
+
+[params]
+
+defaults=true

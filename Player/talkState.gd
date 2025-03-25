@@ -6,47 +6,55 @@ extends LimboState
 
 # Store references to the NPC and dialogue UI
 var npc_parent: Node3D = null
-# Rotation smoothing variables
 var rotation_speed: float = 4.0   
 var return_speed: float = 1.5    
 var previous_rotation: Quaternion
 var target_rotation: Quaternion
 
-
 func _enter(npc: Node3D = null, dialogue: Control = null) -> void:
 	print("Current State:", agent.state_machine.get_active_state())
-	print("Entering Talk State")
 
 	Global.can_move = false
 	Global.is_talking = true
-
-	# Store references passed from player2.gd
+	
 	npc_parent = Global.current_npc as Node3D
 
 	if npc_parent:
-		# Store the NPC's original rotation
+		# Save the NPC's current rotation
 		previous_rotation = npc_parent.global_transform.basis.get_rotation_quaternion()
-
-		# Make the NPC face the player
 		npc_parent.look_at(agent.global_transform.origin, Vector3.UP)
 		npc_parent.rotate_y(PI)  
 		target_rotation = npc_parent.global_transform.basis.get_rotation_quaternion()
 		
+		# Connect to the dialogue_ended signal
+		if not DialogueManager.dialogue_ended.is_connected(_on_dialogue_ended):
+			DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
+		
+		# Start the dialogue
 		DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/main.dialogue"), "Start")
 
 
 func _process(delta: float) -> void:
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && Global.is_talking == true:
-			print("leaving talking state")
-			agent.state_machine.dispatch("to_idle")
+	pass
 
 func _exit() -> void:
 	Global.can_move = true
 	Global.is_talking = false
-	# Reset NPC rotation
+
 	if npc_parent:
+		# Smoothly return NPC to previous rotation
+		var current_rotation = npc_parent.rotation
 		var tween := create_tween()
-		tween.tween_property(npc_parent, "global_transform:basis", Basis(previous_rotation), return_speed) \
+		tween.tween_property(npc_parent, "rotation:y", previous_rotation.get_euler().y, return_speed) \
 			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	# Clear references
+
 	npc_parent = null
+
+# Handle dialogue ending
+func _on_dialogue_ended(resource):
+	print("Dialogue ended:", resource)
+	Global.can_move = true
+	Global.is_talking = false
+	
+	# Return to idle state after dialogue
+	agent.state_machine.dispatch("to_idle")

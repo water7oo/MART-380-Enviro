@@ -17,6 +17,9 @@ var target_blend_amount: float = 0.0
 var blend_lerp_speed: float = 10.0 
 var is_near_npc: bool = false
 var current_npc: Node3D = null
+var last_grounded_position: Vector3 = Vector3.ZERO
+var is_final_boss: bool = false
+var is_mouse_visible: bool = true
 
 @export var mouse_sensitivity: float = 0.005
 

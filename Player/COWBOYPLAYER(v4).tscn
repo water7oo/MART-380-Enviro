@@ -4618,9 +4618,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_vsafk")
 }
 
-[node name="DialogueNPC" type="Area3D" parent="."]
+[node name="PlayerDialogue" type="Area3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueNPC"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDialogue"]
 transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, 0, 116.511, 0)
 shape = SubResource("BoxShape3D_3apqd")
 
@@ -4628,4 +4628,5 @@ shape = SubResource("BoxShape3D_3apqd")
 [connection signal="area_exited" from="RootNode/AttackBox" to="." method="_on_attack_box_area_exited"]
 [connection signal="area_entered" from="RootNode/HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_exited" from="RootNode/HurtBox" to="." method="_on_hurt_box_area_exited"]
-[connection signal="area_entered" from="DialogueNPC" to="." method="_on_dialogue_npc_area_entered"]
+[connection signal="area_entered" from="PlayerDialogue" to="." method="_on_dialogue_npc_area_entered"]
+[connection signal="area_exited" from="PlayerDialogue" to="." method="_on_dialogue_npc_area_exited"]

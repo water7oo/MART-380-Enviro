@@ -49,7 +49,8 @@ func _unhandled_input(event):
 		var rotation_y = spring_arm_pivot.rotation.y - event.relative.x * mouse_sensitivity
 		
 		
-		rotation_x = clamp(rotation_x, deg_to_rad(y_cam_rot_dist), deg_to_rad(x_cam_rot_dist))
+		rotation_x = clamp(rotation_x, deg_to_rad(-90), deg_to_rad(90))
+
 		#rotation_x = clamp(rotation_x, deg_to_rad(-1), deg_to_rad(0))
 		
 		spring_arm_pivot.rotation.x = rotation_x
@@ -87,8 +88,17 @@ func followTarget(delta):
 	if not enabled or not target_node:
 		return
 
+
 	var new_global_transform = global_transform.interpolate_with(target_node.global_transform, speed * delta)
 	global_transform.origin = new_global_transform.origin
+	
+	if !Global.is_final_boss:
+		speed = 20
+		target_node = $"../Cowboy"
+	elif Global.is_final_boss:
+		speed = 2
+		target_node = $"../../../../FinalBossCam"
+
 	
 
 func applyShake(period, magnitude):

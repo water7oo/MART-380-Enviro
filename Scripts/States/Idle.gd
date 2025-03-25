@@ -22,6 +22,14 @@ func _update(delta: float) -> void:
 	initialize_jump(delta)
 	initialize_crouch(delta)
 	initialize_attack(delta)
+	
+	
+	if Global.is_near_npc == true && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		if Global.current_npc:
+			print("Entering to NPC")
+			agent.state_machine.dispatch("to_talk", [Global.current_npc])  # Enter talk state
+		else:
+			agent.state_machine.dispatch("to_talk")
 
 func player_idle(delta: float) -> void:
 	

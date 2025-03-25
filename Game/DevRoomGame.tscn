@@ -1,15 +1,23 @@
-[gd_scene load_steps=14 format=3 uid="uid://b2ud3ury8epgi"]
+[gd_scene load_steps=26 format=3 uid="uid://b2ud3ury8epgi"]
 
-[ext_resource type="AudioStream" uid="uid://ckd1rwa7lgc8e" path="res://sfx_music_main (1).mp3" id="1_8mhp7"]
 [ext_resource type="Environment" uid="uid://cadv2uehcxqkc" path="res://MaterialTextures/NewGame.tres" id="1_c0qo6"]
 [ext_resource type="Material" uid="uid://dcuvjs33ebpe3" path="res://MaterialTextures/Room.tres" id="1_ewgn2"]
+[ext_resource type="AudioStream" uid="uid://gc5men21nyd4" path="res://Sounds/FirstDraft_2_test (1).mp3" id="1_td47c"]
+[ext_resource type="PackedScene" uid="uid://1a3nqo3sadnt" path="res://Blender/3Ds.fbx" id="2_xmu7k"]
 [ext_resource type="Shader" uid="uid://ck3hfip8j04ns" path="res://Game/1BIT_SHADER.gdshader" id="3_8mhp7"]
+[ext_resource type="PackedScene" uid="uid://hppylynqdlmw" path="res://Blender/BloodKatana.blend" id="3_td47c"]
 [ext_resource type="PackedScene" uid="uid://byiwrnoah113n" path="res://ui/GameStartANIM.tscn" id="4_rsb4y"]
 [ext_resource type="PackedScene" uid="uid://brejidgy2nq2j" path="res://ui/Pausing.tscn" id="4_x187o"]
 [ext_resource type="Shader" uid="uid://b1hg6btlggl78" path="res://Shaders/uhhhhh.gdshader" id="7_kt4n2"]
 [ext_resource type="PackedScene" uid="uid://bl275sfu3mmds" path="res://Enemy/Enemy2.tscn" id="9_38om4"]
 [ext_resource type="PackedScene" uid="uid://bgkmd80vrnlao" path="res://Player/COWBOYPLAYER(v4).tscn" id="10_tkxv2"]
+[ext_resource type="PackedScene" uid="uid://c4ho6ioov35w2" path="res://Blender/hand.tscn" id="11_4nbnq"]
 [ext_resource type="PackedScene" uid="uid://7l5yih8w56c3" path="res://Player/PlayerCamera.tscn" id="11_hq17w"]
+[ext_resource type="Texture2D" uid="uid://cw6o24ely31qv" path="res://My Textures/realistic-human-eye-texture-free-766.png" id="12_td47c"]
+[ext_resource type="PackedScene" uid="uid://dbh30cmkqb16" path="res://Blender/sksleton.tscn" id="14_dsa57"]
+[ext_resource type="Script" uid="uid://c0ybhxjl18ebc" path="res://Game/StartGame.gd" id="16_dsa57"]
+[ext_resource type="Script" uid="uid://ctu1c0gny0mq2" path="res://Game/FinalBoss.gd" id="17_trpa7"]
+[ext_resource type="PackedScene" uid="uid://deebu6uo31f27" path="res://Blender/pine_tree_1.tscn" id="18_6ckoi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ov31c"]
 shader = ExtResource("3_8mhp7")
@@ -25,21 +33,49 @@ shader = ExtResource("7_kt4n2")
 shader_parameter/speedScale = 50.875
 shader_parameter/clipPosition = 0.2
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dsa57"]
+albedo_texture = ExtResource("12_td47c")
+uv1_scale = Vector3(-2.02, -2.02, -2.02)
+uv1_offset = Vector3(0, 0.165, 0)
+texture_filter = 0
+
 [sub_resource type="SphereMesh" id="SphereMesh_mlbvo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trpa7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ckoi"]
+size = Vector3(1.74426, 0.604248, 0.214844)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_37wf3"]
+size = Vector3(4.77429, 2.71094, 0.20752)
 
 [node name="TRAINING" type="Node3D"]
 
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -153.372, 43.8671, 22.2829)
+light_energy = 1500.0
+omni_range = 109.409
+omni_attenuation = 0.589
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("1_8mhp7")
+stream = ExtResource("1_td47c")
 volume_db = -13.823
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.115836, -0.236257, 0.964762, 0.337617, 0.922834, 0.185452, -0.934129, 0.304238, 0.186661, -69.2595, -7.29807, 11.6902)
+visible = false
 light_energy = 16.0
+shadow_enabled = true
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.484882, -0.754804, 0.441769, -0.272461, 0.349615, 0.896401, -0.831057, -0.555013, -0.0361327, -69.2595, -7.29807, 128.44)
+visible = false
+light_energy = 150.0
 shadow_enabled = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.0504923, -0.016445, -0.998589, 0.949499, -0.309244, 0.053103, -0.309681, -0.950841, 2.06054e-08, -50.353, 9.18184, 12.579)
+visible = false
 light_energy = 7.356
 shadow_enabled = true
 
@@ -47,9 +83,9 @@ shadow_enabled = true
 environment = ExtResource("1_c0qo6")
 
 [node name="FogVolume" type="FogVolume" parent="."]
-transform = Transform3D(-0.505, 0, 0, 0, -0.505, 0, 0, 0, -0.505, 68.2511, 0, 13.6196)
+transform = Transform3D(-0.22, 0, 0, 0, -0.22, 0, 0, 0, -0.22, 7.61731, -7.62939e-06, 27.6777)
 visible = false
-size = Vector3(204.868, 100, 100)
+size = Vector3(440.799, 100, 116.073)
 shape = 0
 
 [node name="Preview" type="Control" parent="."]
@@ -90,32 +126,44 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="MeshInstance3D" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(11.342, 8.29459e-10, 0, 1.77636e-15, 9.38252, 0, 0, 0, 8.72365, -4.85705, -0.569923, 0.0766474)
-size = Vector3(0.766698, 0.425964, 0.368217)
+transform = Transform3D(11.3419, 9.25866e-10, 0, -1.77636e-14, 9.38252, 0, 0, 0, 8.72365, -4.85705, -1.64152, 0.0766473)
+size = Vector3(0.766698, 0.654388, 0.368217)
+
+[node name="MeshInstance3D2" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(3.35195, 0, 0, -5.57332e-14, 2.773, 0, 0, 0, 2.578, 0.269024, 1.57766, 0.379235)
+size = Vector3(0.400525, 0.0637435, 0.183119)
+
+[node name="MeshInstance3D3" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(3.35195, 0, 0, -5.63993e-14, 2.773, 0, 0, 0, 2.578, 1.8339, 1.84094, 0.379235)
+size = Vector3(0.400525, 0.0637435, 0.183119)
+
+[node name="MeshInstance3D4" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(3.35195, 0, 0, -5.68434e-14, 2.773, 0, 0, 0, 2.578, 1.8339, 2.12601, 0.379235)
+size = Vector3(0.400525, 0.0637435, 0.183119)
+
+[node name="MeshInstance3D5" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(3.35195, 0, 0, -5.79536e-14, 2.773, 0, 0, 0, 2.578, 4.0933, 2.34358, 0.379235)
+size = Vector3(0.400525, 0.0637435, 0.183119)
+
+[node name="MeshInstance3D7" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(3.35194, 0, 0, -5.83977e-14, 2.773, 0, 0, 0, 2.578, 5.62582, 2.56357, 0.379235)
+size = Vector3(0.400525, 0.0637435, 0.183119)
 
 [node name="MeshInstance3D18" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(0.225, 6.92727e-05, 1.65759e-08, 1.17091e-06, -0.0040303, 0.224965, 6.77566e-05, -0.229965, -0.00394269, 6.5667, -2.28503, 0.123383)
+transform = Transform3D(0.225, 6.92727e-05, 1.65759e-08, 1.17091e-06, -0.0040303, 0.224965, 6.77566e-05, -0.229965, -0.00394269, 6.56669, -4.32509, 0.123383)
 size = Vector3(129.975, 4.75217, 1.29268)
 
 [node name="MeshInstance3D19" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(0.752089, 0.549348, 0.0036489, -0.000228085, 0.538947, 0.0132417, 5.4764e-06, -0.00944392, 0.752088, 26.4622, -0.829645, 0.133146)
-size = Vector3(18.2343, 6.32811, 1.4822)
-
-[node name="MeshInstance3D22" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(0.752089, 0.549348, 0.0036489, -0.000228085, 0.538947, 0.0132417, 5.4764e-06, -0.00944392, 0.752088, 26.4622, -0.829645, 1.3091)
-size = Vector3(18.2343, 6.32811, 1.4822)
+transform = Transform3D(0.752082, 0.549342, 0.00364886, -0.000228085, 0.538947, 0.0132417, 5.4764e-06, -0.00944392, 0.752088, 25.4905, -1.78294, 0.14985)
+size = Vector3(18.2343, 9.86572, 1.4822)
 
 [node name="MeshInstance3D17" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.18164e-10, -3.32171e-06, 42.6991, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 18.7111, -0.755139, 0.704501)
-size = Vector3(18.2343, 4.75217, 1.02622)
-
-[node name="MeshInstance3D21" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.18164e-10, -3.32171e-06, 42.6991, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 18.7111, -0.0564563, 1.75858)
-size = Vector3(18.2343, 2.84874, 1.02622)
+transform = Transform3D(6.18164e-10, -3.32169e-06, 42.6988, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 18.7111, -1.69947, 0.72105)
+size = Vector3(18.2343, 7.32482, 1.02622)
 
 [node name="MeshInstance3D20" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(6.18164e-10, -3.32171e-06, 42.6991, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 18.7111, -0.755139, -0.452181)
-size = Vector3(18.2343, 4.75217, 1.02622)
+transform = Transform3D(6.18164e-10, -3.32169e-06, 42.6988, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 18.7111, -1.59242, -0.437508)
+size = Vector3(18.2343, 7.03319, 1.02622)
 
 [node name="Pausing" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("4_x187o")]
 
@@ -131,8 +179,16 @@ mouse_filter = 1
 mouse_force_pass_scroll_events = false
 color = Color(0, 0, 0, 1)
 
+[node name="Enemy2" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("9_38om4")]
+transform = Transform3D(-0.606218, 0, 0.349999, 0, 0.7, 0, -0.349999, 0, -0.606218, -47.457, 1.29555, 18.4457)
+metadata/_edit_group_ = true
+
 [node name="Enemy" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("9_38om4")]
 transform = Transform3D(-0.181173, 0, -0.676148, 0, 0.7, 0, 0.676148, 0, -0.181173, -47.2424, 0.762087, 12.9759)
+metadata/_edit_group_ = true
+
+[node name="Enemy3" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("9_38om4")]
+transform = Transform3D(-0.181173, 0, -0.676148, 0, 0.7, 0, 0.676148, 0, -0.181173, 122.619, 0.762087, 12.9759)
 metadata/_edit_group_ = true
 
 [node name="CamTarget2" type="Marker3D" parent="Preview/SubViewportContainer/SubViewport"]
@@ -145,20 +201,494 @@ target = NodePath("../Cowboy")
 speed = 20.0
 
 [node name="Cowboy" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("10_tkxv2")]
-transform = Transform3D(-3.0598e-10, 0, 0.007, 0, 0.007, 0, -0.007, 0, -3.0598e-10, -41.7791, 0.959527, 14.3593)
+transform = Transform3D(-3.0598e-10, 0, 0.007, 0, 0.007, 0, -0.007, 0, -3.0598e-10, -32.4847, 3.02314, 32.8766)
+metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport"]
-transform = Transform3D(37.895, 0, 0, 0, 37.895, 0, 0, 0, 37.895, -83.3652, 10.5206, 43.7061)
-mesh = SubResource("SphereMesh_mlbvo")
+[node name="OmniLight3D" type="OmniLight3D" parent="Preview/SubViewportContainer/SubViewport/Cowboy"]
+transform = Transform3D(-6.24449e-06, 0, -142.857, 0, 142.857, 0, 142.857, 0, -6.24449e-06, 0.0427246, 0.0675659, 0.0141602)
+light_energy = 16.0
+omni_range = 12.8897
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport"]
-transform = Transform3D(14.7, 0, 0, 0, 14.7, 0, 0, 0, 14.7, -164.089, 21.73, -59.1076)
-mesh = SubResource("SphereMesh_mlbvo")
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("14_dsa57")]
+transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, -175.136, -423.44, 19.2783)
+metadata/_edit_group_ = true
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport"]
-transform = Transform3D(31.415, 0, 0, 0, 31.415, 0, 0, 0, 31.415, -121.202, 18.0819, 106.553)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport/Skeleton2"]
+transform = Transform3D(0.0363658, 0.035128, 0.00149363, -0.033131, 0.0335171, 0.0183742, 0.0117704, -0.0141881, 0.0471045, 0.0064373, 1.59135, 0.0296115)
+material_override = SubResource("StandardMaterial3D_dsa57")
 mesh = SubResource("SphereMesh_mlbvo")
+skeleton = NodePath("../..")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport"]
-transform = Transform3D(22.685, 0, 0, 0, 22.685, 0, 0, 0, 22.685, -121.202, -1.58529, -15.5192)
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport/Skeleton2"]
+transform = Transform3D(0.0475536, 0.0103931, 0.0137592, -0.0162468, 0.0405282, 0.0255377, -0.00577699, -0.0284274, 0.0414389, 0.012112, 1.59135, -0.0269664)
+material_override = SubResource("StandardMaterial3D_dsa57")
 mesh = SubResource("SphereMesh_mlbvo")
+skeleton = NodePath("../..")
+
+[node name="Skeleton4" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("14_dsa57")]
+transform = Transform3D(-1.31134e-05, 0, 300, 0, 300, 0, -300, 0, -1.31134e-05, -134.095, -423.44, 69.1371)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport/Skeleton4"]
+transform = Transform3D(0.0363658, 0.035128, 0.00149363, -0.033131, 0.0335171, 0.0183742, 0.0117704, -0.0141881, 0.0471045, 0.0064373, 1.59135, 0.0296115)
+material_override = SubResource("StandardMaterial3D_dsa57")
+mesh = SubResource("SphereMesh_mlbvo")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport/Skeleton4"]
+transform = Transform3D(0.0475536, 0.0103931, 0.0137592, -0.0162468, 0.0405282, 0.0255377, -0.00577699, -0.0284274, 0.0414389, 0.012112, 1.59135, -0.0269664)
+material_override = SubResource("StandardMaterial3D_dsa57")
+mesh = SubResource("SphereMesh_mlbvo")
+skeleton = NodePath("../..")
+
+[node name="Skeleton5" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("14_dsa57")]
+transform = Transform3D(-1.31134e-05, 0, -300, 0, 300, 0, 300, 0, -1.31134e-05, -134.095, -423.44, -30.8629)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport/Skeleton5"]
+transform = Transform3D(0.0363658, 0.035128, 0.00149363, -0.033131, 0.0335171, 0.0183742, 0.0117704, -0.0141881, 0.0471045, 0.0064373, 1.59135, 0.0296115)
+material_override = SubResource("StandardMaterial3D_dsa57")
+mesh = SubResource("SphereMesh_mlbvo")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport/Skeleton5"]
+transform = Transform3D(0.0475536, 0.0103931, 0.0137592, -0.0162468, 0.0405282, 0.0255377, -0.00577699, -0.0284274, 0.0414389, 0.012112, 1.59135, -0.0269664)
+material_override = SubResource("StandardMaterial3D_dsa57")
+mesh = SubResource("SphereMesh_mlbvo")
+skeleton = NodePath("../..")
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("14_dsa57")]
+transform = Transform3D(-82.474, 0, 45.142, 0, 94.02, 0, -45.142, 0, -82.474, 57.0346, -138.212, 31.1331)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport/Skeleton3"]
+transform = Transform3D(0.0363658, 0.035128, 0.00149363, -0.033131, 0.0335171, 0.0183742, 0.0117704, -0.0141881, 0.0471045, 0.0064373, 1.59135, 0.0296115)
+material_override = SubResource("StandardMaterial3D_dsa57")
+mesh = SubResource("SphereMesh_mlbvo")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport/Skeleton3"]
+transform = Transform3D(0.0475536, 0.0103931, 0.0137592, -0.0162468, 0.0405282, 0.0255377, -0.00577699, -0.0284274, 0.0414389, 0.012112, 1.59135, -0.0269664)
+material_override = SubResource("StandardMaterial3D_dsa57")
+mesh = SubResource("SphereMesh_mlbvo")
+skeleton = NodePath("../..")
+
+[node name="3Ds" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("2_xmu7k")]
+transform = Transform3D(0.61265, 0.329676, 0.718312, 0.144404, 0.846858, -0.511837, -0.777049, 0.417304, 0.471223, -41.7316, 1.40256, 3.01764)
+
+[node name="Hand" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("11_4nbnq")]
+transform = Transform3D(2.02848, 10.6007, 8.7907, -13.6112, 0.191804, 2.90952, 2.09461, -9.01966, 10.3935, -166.271, -92.3918, 18.2719)
+
+[node name="BloodKatana" parent="Preview/SubViewportContainer/SubViewport/Hand" instance=ExtResource("3_td47c")]
+transform = Transform3D(0.609163, 0.250187, -1.65079, -1.66186, 0.260303, -0.5738, 0.161002, 1.74024, 0.323155, -5.90946, 3.41435, -0.0906501)
+
+[node name="Hand3" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("11_4nbnq")]
+transform = Transform3D(13.7307, 2.07323, -0.967963, 1.93333, -7.36301, 11.654, 1.22373, -11.6299, -7.55081, -38.6793, 13.8936, 123.738)
+
+[node name="BloodKatana" parent="Preview/SubViewportContainer/SubViewport/Hand3" instance=ExtResource("3_td47c")]
+transform = Transform3D(0.609163, 0.250187, -1.65079, -1.66186, 0.260303, -0.5738, 0.161002, 1.74024, 0.323155, -5.90946, 3.41435, -0.0906501)
+
+[node name="Hand2" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("11_4nbnq")]
+transform = Transform3D(-5.8544, -10.6868, 6.72944, 4.52865, 5.14758, 12.1145, -11.7891, 7.28435, 1.31182, -43.2726, 8.7489, -54.2729)
+
+[node name="RSide" type="Node3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(-1.73097e-07, 0, 3.96, 0, 3.96, 0, -3.96, 0, -1.73097e-07, -32.55, 0, 18.4568)
+
+[node name="SkeletonFamily" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide"]
+
+[node name="Skelegroup" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily"]
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily/Skelegroup" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily/Skelegroup" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily/Skelegroup" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup2" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 2.77778)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily/Skelegroup2" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily/Skelegroup2" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily/Skelegroup2" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup3" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 5.80808)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily/Skelegroup3" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily/Skelegroup3" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily/Skelegroup3" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup4" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 8.83838)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily/Skelegroup4" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily/Skelegroup4" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily/Skelegroup4" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="SkeletonFamily3" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.53674e-07, 0, 18.9394)
+
+[node name="Skelegroup" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3"]
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3/Skelegroup" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3/Skelegroup" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3/Skelegroup" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup2" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 2.77778)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3/Skelegroup2" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3/Skelegroup2" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3/Skelegroup2" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup3" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 5.80808)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3/Skelegroup3" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3/Skelegroup3" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3/Skelegroup3" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup4" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 8.83838)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3/Skelegroup4" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3/Skelegroup4" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily3/Skelegroup4" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="SkeletonFamily2" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 12.8788)
+
+[node name="Skelegroup" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2"]
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2/Skelegroup" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2/Skelegroup" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2/Skelegroup" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup2" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 2.77778)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2/Skelegroup2" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2/Skelegroup2" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2/Skelegroup2" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup3" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 5.80808)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2/Skelegroup3" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2/Skelegroup3" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2/Skelegroup3" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup4" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 8.83838)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2/Skelegroup4" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2/Skelegroup4" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide/SkeletonFamily2/Skelegroup4" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="RSide2" type="Node3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(-1.73097e-07, 0, -3.96, 0, 3.96, 0, 3.96, 0, -1.73097e-07, 87.45, 0, 6.00326)
+
+[node name="SkeletonFamily" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2"]
+
+[node name="Skelegroup" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily"]
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily/Skelegroup" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily/Skelegroup" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily/Skelegroup" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup2" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 2.77778)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily/Skelegroup2" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily/Skelegroup2" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily/Skelegroup2" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup3" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 5.80808)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily/Skelegroup3" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily/Skelegroup3" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily/Skelegroup3" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup4" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 8.83838)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily/Skelegroup4" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily/Skelegroup4" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily/Skelegroup4" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="SkeletonFamily3" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.53674e-07, 0, 18.9394)
+
+[node name="Skelegroup" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3"]
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3/Skelegroup" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3/Skelegroup" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3/Skelegroup" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup2" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 2.77778)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3/Skelegroup2" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3/Skelegroup2" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3/Skelegroup2" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup3" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 5.80808)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3/Skelegroup3" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3/Skelegroup3" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3/Skelegroup3" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup4" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 8.83838)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3/Skelegroup4" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3/Skelegroup4" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily3/Skelegroup4" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="SkeletonFamily2" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 12.8788)
+
+[node name="Skelegroup" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2"]
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2/Skelegroup" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2/Skelegroup" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2/Skelegroup" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup2" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 2.77778)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2/Skelegroup2" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2/Skelegroup2" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2/Skelegroup2" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup3" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 5.80808)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2/Skelegroup3" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2/Skelegroup3" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2/Skelegroup3" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Skelegroup4" type="Node3D" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 8.83838)
+
+[node name="Skeleton" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2/Skelegroup4" instance=ExtResource("14_dsa57")]
+metadata/_edit_group_ = true
+
+[node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2/Skelegroup4" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.757576)
+metadata/_edit_group_ = true
+
+[node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport/RSide2/SkeletonFamily2/Skelegroup4" instance=ExtResource("14_dsa57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
+metadata/_edit_group_ = true
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("16_dsa57")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(71.17, 0, 0, 0, 71.17, 0, 0, 0, 71.17, 138.247, 0, 13.5015)
+shape = SubResource("BoxShape3D_trpa7")
+
+[node name="FinalBoss" type="Area3D" parent="."]
+script = ExtResource("17_trpa7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FinalBoss"]
+transform = Transform3D(71.17, 0, 0, 0, 71.17, 0, 0, 0, 71.17, -149.094, 22.5968, 16.5596)
+shape = SubResource("BoxShape3D_6ckoi")
+
+[node name="PineTree1" parent="." instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -29.7259, 1.1661, 31.0437)
+
+[node name="PineTree2" parent="." instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -18.4855, 1.1661, 31.0437)
+
+[node name="PineTree3" parent="." instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -11.9053, 1.1661, 35.7222)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(18.47, 0, 0, 0, 18.47, 0, 0, 0, 18.47, -97.2068, 15.8005, 10.9777)
+shape = SubResource("BoxShape3D_37wf3")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.5474)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(18.47, 0, 0, 0, 18.47, 0, 0, 0, 18.47, -97.2068, 15.8005, 10.9777)
+shape = SubResource("BoxShape3D_37wf3")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -130.684, 0, 122.023)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
+transform = Transform3D(18.47, 0, 0, 0, 18.47, 0, 0, 0, 18.47, -97.2068, 15.8005, 10.9777)
+shape = SubResource("BoxShape3D_37wf3")
+
+[node name="FinalBossCam" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.9935, 49.5805, 15.8549)
+gizmo_extents = 6.01
+
+[connection signal="area_entered" from="Area3D" to="Area3D" method="_on_area_entered"]
+[connection signal="area_entered" from="FinalBoss" to="FinalBoss" method="_on_area_entered"]

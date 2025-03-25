@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbh30cmkqb16"]
+
+[ext_resource type="PackedScene" uid="uid://rt1vbxlnh0fb" path="res://Blender/Skeleton.glb" id="1_01ixh"]
+
+[node name="Skeleton" instance=ExtResource("1_01ixh")]
