@@ -7,25 +7,26 @@ extends Node3D
 @export var enabled: bool
 @export var spring_arm_pivot: Node3D
 @export var mouse_sensitivity: float = 0.005
-@export var joystick_sensitivity: float = 0.005 
+@export var joystick_sensitivity: float = 0.005
 @onready var camera = $SpringArmPivot/SpringArm3D/Margin/Camera3D
 var cam_lerp_speed: float = .005
 
 var is_mouse_visible: bool = true
-
 @export var period: float = .04
 @export var magnitude: float = 0.08
-
 @export var y_cam_rot_dist: float = -80
 @export var x_cam_rot_dist: float = 1
 
 var original_global_transform: Transform3D
 var target_node: Node3D
+var has_shaken: bool = false  # Flag to prevent repeated shake
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	target_node = get_node(target) as Node3D
 	
+
+		
 	#original_global_transform = target_node.global_transform
 
 func _unhandled_input(event):
@@ -75,6 +76,15 @@ func _unhandled_input(event):
 
 func _physics_process(delta):
 	followTarget(delta)
+	#print(has_shaken)
+	#if Global.is_final_boss && !has_shaken:
+		#await get_tree().create_timer(3).timeout  # Wait for 3 seconds before shaking
+		#applyShake(0.5, 0.1)  # Apply shake
+		#has_shaken = true  # Set flag to prevent re-shaking
+	#else:
+		#has_shaken = false
+	
+		
 
 func _process(delta: float) -> void:
 	_unhandled_input(delta)
@@ -83,7 +93,7 @@ func _process(delta: float) -> void:
 		applyShake(.04,0.08)
 		
 	
-	
+
 func followTarget(delta):
 	if not enabled or not target_node:
 		return
@@ -98,6 +108,14 @@ func followTarget(delta):
 	elif Global.is_final_boss:
 		speed = 2
 		target_node = $"../../../../FinalBossCam"
+		
+	if Global.ChosenOne:
+		speed = 2
+		target_node = $"../../../../ChosenOneCam"
+		
+	if Global.tryingtoEscape:
+		speed = 10
+		target_node = $"../../../../Escape"
 
 	
 

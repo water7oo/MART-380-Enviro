@@ -13,6 +13,7 @@ extends CharacterBody3D
 @export var slide_state = $LimboHSM/SlideState
 @export var talk_state = $LimboHSM/TalkState
 
+
 @export var take_damage_state = $LimboHSM/TakeDamageState
 @export var recover_state = $LimboHSM/RecoverState
 
@@ -31,8 +32,7 @@ func initialize_state_machine():
 	state_machine.add_transition(state_machine.ANYSTATE, jump_state, "to_jump")
 	state_machine.add_transition(state_machine.ANYSTATE, take_damage_state, "to_damaged")
 	state_machine.add_transition(state_machine.ANYSTATE, talk_state, "to_talk")
-	
-	
+
 	
 	state_machine.add_transition(run_state, runJump_state, "to_runJump")
 	state_machine.add_transition(walk_state, burst_state, "to_burst")
@@ -87,21 +87,22 @@ func _on_attack_box_area_exited(area):
 
 
 func _on_dialogue_npc_area_entered(area):
-	if area.name == "DialogueNPC" && !Global.is_talking:
+	if area.name == "DialogueNPC1" && !Global.is_talking:
 		print("Entered NPC Area")
 		Global.is_near_npc = true
 		Global.current_npc = area.get_parent() as Node3D
 
 
 func _on_dialogue_npc_area_exited(area):
-	if area.name == "DialogueNPC":
+	if area.name == "DialogueNPC1":
 		print("Exited NPC Area")
 		Global.is_near_npc = false
+		Global.is_talking = false
 		Global.current_npc = null  # Clear the NPC reference
 
 
 func _physics_process(delta: float) -> void:
 	playerGravity(delta)
-
+	
 	#print(Global.is_near_npc)
 	

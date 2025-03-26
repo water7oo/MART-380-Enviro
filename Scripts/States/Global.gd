@@ -20,6 +20,11 @@ var current_npc: Node3D = null
 var last_grounded_position: Vector3 = Vector3.ZERO
 var is_final_boss: bool = false
 var is_mouse_visible: bool = true
+var dialogue_just_ended = false
+var pleaseGiveKeys = false
+var ChosenOne = false
+var startGame = false
+var tryingtoEscape = false
 
 @export var mouse_sensitivity: float = 0.005
 

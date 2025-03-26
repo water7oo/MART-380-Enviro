@@ -31,6 +31,6 @@ fog_depth_curve = 1.18921
 fog_depth_begin = 0.0
 fog_depth_end = 240.8
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.1204
+volumetric_fog_density = 0.1486
 volumetric_fog_albedo = Color(0, 0, 0, 1)
 adjustment_enabled = true

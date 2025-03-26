@@ -46,7 +46,7 @@ func player_jump(delta: float) -> void:
 
 	# Landing logic with smooth deceleration instead of hard stop
 	if agent.is_on_floor():
-		print("Landed!")
+		#print("Landed!")
 		animationTree.set("parameters/Jump_Blend/blend_amount", -1)
 		
 		# Reduce velocity smoothly rather than stopping immediately

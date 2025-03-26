@@ -1,6 +1,8 @@
 class_name DialogueManagerExampleBalloon extends CanvasLayer
 ## A basic dialogue balloon for use with Dialogue Manager.
 
+
+@onready var talk_sound_mini = $TalkSoundMini
 ## The action to use for advancing the dialogue
 @export var next_action: StringName = &"ui_accept"
 
@@ -174,3 +176,10 @@ func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
 
 
 #endregion
+
+
+func _on_dialogue_label_spoke(letter, letter_index, speed):
+	if !letter in [".", ""]:
+		talk_sound_mini.pitch_scale = randf_range(0.9, 1.1)
+		
+		talk_sound_mini.play()

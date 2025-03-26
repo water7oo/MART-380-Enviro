@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://l85x7pm108wa"
+path="res://.godot/imported/ChosenOnedialogue.dialogue-593f3a77df449ad76d4d5f354f248677.tres"
+
+[deps]
+
+source_file="res://Dialogue/ChosenOnedialogue.dialogue"
+dest_files=["res://.godot/imported/ChosenOnedialogue.dialogue-593f3a77df449ad76d4d5f354f248677.tres"]
+
+[params]
+
+defaults=true

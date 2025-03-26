@@ -16,7 +16,8 @@ func _enter(npc: Node3D = null, dialogue: Control = null) -> void:
 
 	Global.can_move = false
 	Global.is_talking = true
-	
+	Global.dialogue_just_ended = false  # Reset the flag to allow future interactions
+
 	npc_parent = Global.current_npc as Node3D
 
 	if npc_parent:
@@ -30,9 +31,13 @@ func _enter(npc: Node3D = null, dialogue: Control = null) -> void:
 		if not DialogueManager.dialogue_ended.is_connected(_on_dialogue_ended):
 			DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
 		
-		# Start the dialogue
-		DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/main.dialogue"), "Start")
-
+		# Choose the dialogue based on the 'pleaseGiveKeys' condition
+		if Global.pleaseGiveKeys:
+			
+			DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/AfterFinalBossNPC.dialogue"), "start")
+		else:
+			DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/main.dialogue"), "Start")
+	
 
 func _process(delta: float) -> void:
 	pass
@@ -49,12 +54,13 @@ func _exit() -> void:
 			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 	npc_parent = null
+	print('LEAVING STATE')
 
 # Handle dialogue ending
 func _on_dialogue_ended(resource):
 	print("Dialogue ended:", resource)
 	Global.can_move = true
 	Global.is_talking = false
-	
+	Global.dialogue_just_ended = true  # Set flag to true once the dialogue ends
 	# Return to idle state after dialogue
 	agent.state_machine.dispatch("to_idle")

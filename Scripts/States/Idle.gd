@@ -23,23 +23,22 @@ func _update(delta: float) -> void:
 	initialize_crouch(delta)
 	initialize_attack(delta)
 	
-	
-	if Global.is_near_npc == true && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		if Global.current_npc:
-			print("Entering to NPC")
-			agent.state_machine.dispatch("to_talk", [Global.current_npc])  # Enter talk state
-		else:
-			agent.state_machine.dispatch("to_talk")
+	await get_tree().create_timer(.5).timeout
+	Global.dialogue_just_ended = false
+	# Check if the player can interact with the NPC and hasn't just ended dialogue
+	if Global.is_near_npc and not Global.is_talking and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not Global.dialogue_just_ended:
+		Global.is_talking = true
+		Global.dialogue_just_ended = false  # Set flag to true to prevent re-triggering
+		agent.state_machine.dispatch("to_talk")  # Enter talk state
 
 func player_idle(delta: float) -> void:
-	
 	if Global.can_move:
 		agent.move_and_slide()
 		
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = (agent.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	if direction.length() > 0:
+	if direction.length() > 0 && Global.ChosenOne == false:
 		# Player is moving, switch to walk state
 		agent.velocity.x = direction.x * BASE_SPEED
 		agent.velocity.z = direction.z * BASE_SPEED
@@ -53,7 +52,11 @@ func player_idle(delta: float) -> void:
 		Global.target_blend_amount = 0.0
 		Global.current_blend_amount = lerp(Global.current_blend_amount, Global.target_blend_amount, Global.blend_lerp_speed * delta)
 		animationTree.set("parameters/Ground_Blend/blend_amount", -1)
+		
+		
 
+		
+		
 func initialize_jump(delta: float) -> void:
 	if Input.is_action_just_pressed("move_jump"):
 		agent.state_machine.dispatch("to_jump")
@@ -63,7 +66,5 @@ func initialize_crouch(delta: float) -> void:
 		agent.state_machine.dispatch("to_crouch")
 
 func initialize_attack(delta: float) -> void:
-	
-	#pressing attack unsheathes katana and player is in attackmode
 	if Input.is_action_just_pressed("attack_light_1"):
 		agent.state_machine.dispatch("to_attack")

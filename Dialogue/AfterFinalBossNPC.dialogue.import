@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://t7l5gd0i1qox"
+path="res://.godot/imported/AfterFinalBossNPC.dialogue-155296a3ac6c7dd025da13d1ffd99bdc.tres"
+
+[deps]
+
+source_file="res://Dialogue/AfterFinalBossNPC.dialogue"
+dest_files=["res://.godot/imported/AfterFinalBossNPC.dialogue-155296a3ac6c7dd025da13d1ffd99bdc.tres"]
+
+[params]
+
+defaults=true

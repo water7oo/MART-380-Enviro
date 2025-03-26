@@ -45,8 +45,7 @@ _data = {
 [node name="CameraSet" type="Node3D" node_paths=PackedStringArray("spring_arm_pivot") groups=["camera"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.843886, 0)
 script = ExtResource("1_hwm0y")
-enabled = true
-spring_arm_pivot = NodePath(".")
+spring_arm_pivot = NodePath("SpringArmPivot")
 
 [node name="SpringArmPivot" type="Node3D" parent="." groups=["camera"]]
 
