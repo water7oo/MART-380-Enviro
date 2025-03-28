@@ -5,7 +5,7 @@
 [resource]
 background_mode = 2
 background_color = Color(0.75, 0.75, 0.75, 1)
-background_energy_multiplier = 16.0
+background_energy_multiplier = 0.35
 sky = ExtResource("1_62d6e")
 ambient_light_source = 3
 ambient_light_color = Color(0.93408, 0.93408, 0.93408, 1)
@@ -30,7 +30,6 @@ fog_height_density = -12.169
 fog_depth_curve = 1.18921
 fog_depth_begin = 0.0
 fog_depth_end = 240.8
-volumetric_fog_enabled = true
 volumetric_fog_density = 0.1486
 volumetric_fog_albedo = Color(0, 0, 0, 1)
 adjustment_enabled = true

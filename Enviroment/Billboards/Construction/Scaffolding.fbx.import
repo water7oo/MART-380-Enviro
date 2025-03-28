@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b62jutyqli6xy"
-path="res://.godot/imported/Scaffolding.fbx-8a606b244efcfa7e9d69a98ab817262e.scn"
+valid=false
 
 [deps]
 
 source_file="res://Enviroment/Billboards/Construction/Scaffolding.fbx"
-dest_files=["res://.godot/imported/Scaffolding.fbx-8a606b244efcfa7e9d69a98ab817262e.scn"]
 
 [params]
 

@@ -1,6 +1,6 @@
 [gd_resource type="Sky" load_steps=3 format=3 uid="uid://ddor6rirpkfi1"]
 
-[ext_resource type="Texture2D" uid="uid://d7b2dg3gyp3k" path="res://My Textures/Sky Texture_Game.png" id="1_36quu"]
+[ext_resource type="Texture2D" uid="uid://d7b2dg3gyp3k" path="res://trash/Sky Texture_Game.png" id="1_36quu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l1opr"]
 sky_top_color = Color(0, 0.356863, 0.552941, 1)

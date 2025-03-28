@@ -1,25 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://botd2e2pvg6ce"]
 
 [ext_resource type="PackedScene" uid="uid://ce3emrnfl1nuy" path="res://Player/COWBOYPLAYER_V4.blend" id="1_g7xsl"]
+[ext_resource type="Script" uid="uid://dkq1let0s8kyo" path="res://Player/playIdleNPC.gd" id="2_e837j"]
 [ext_resource type="Material" uid="uid://dcakvymmosyhp" path="res://MaterialTextures/COWBOY.tres" id="2_qhor5"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://ccqgr0tb8ublp" path="res://Animations/cowboy2ndPassTree.tres" id="11_fvafx"]
 
 [node name="COWBOYPLAYER_V4" groups=["player"] instance=ExtResource("1_g7xsl")]
+script = ExtResource("2_e837j")
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="0"]
-tree_root = ExtResource("11_fvafx")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Attack_Shot/active = false
-parameters/Attack_Shot/internal_active = false
-parameters/Attack_Shot/request = 0
-parameters/Attack_Shot2/active = false
-parameters/Attack_Shot2/internal_active = false
-parameters/Attack_Shot2/request = 0
-parameters/Blend3/blend_amount = 0
-parameters/Ground_Blend/blend_amount = -1.0
-parameters/Ground_Blend2/blend_amount = -1.0
-parameters/Ground_Blend3/blend_amount = -1.0
-parameters/Jump_Blend/blend_amount = -1.0
 
 [node name="Skeleton3D" parent="Armature_001" index="0"]
 bones/0/position = Vector3(8.80678e-15, 79.2757, -2.03044)
@@ -28,17 +17,17 @@ bones/1/rotation = Quaternion(-0.00512796, 8.5365e-06, -1.19303e-05, 0.999987)
 bones/2/rotation = Quaternion(-9.31323e-10, 3.56343e-14, 6.82828e-13, 1)
 bones/3/rotation = Quaternion(-7.91624e-09, 1.10589e-17, 4.88208e-16, 1)
 bones/4/position = Vector3(-1.58909e-08, 22.9969, 6.48477e-07)
-bones/4/rotation = Quaternion(-0.0464927, 0.117799, -0.0220429, 0.991704)
+bones/4/rotation = Quaternion(-0.180012, -0.00515193, 0.00408986, 0.983642)
 bones/5/rotation = Quaternion(0.0375219, -3.32017e-09, 5.24238e-10, 0.999296)
-bones/7/position = Vector3(-13.1078, 19.5183, -0.284326)
-bones/7/rotation = Quaternion(0.568092, -0.10121, 0.800113, 0.163853)
+bones/7/position = Vector3(-13.1344, 20.4164, 0.197586)
+bones/7/rotation = Quaternion(0.636196, -0.0353189, 0.733879, 0.235433)
 bones/8/position = Vector3(2.63347e-06, 26.7401, -6.23545e-06)
 bones/8/rotation = Quaternion(0.0176261, -0.749364, -0.00649945, 0.661892)
 bones/9/position = Vector3(-7.38544e-06, 8.55822, -1.13338e-05)
 bones/9/rotation = Quaternion(-0.056576, -0.629805, -0.0548711, 0.772744)
 bones/10/position = Vector3(5.96046e-06, 32.3199, -2.32458e-06)
-bones/11/position = Vector3(13.1078, 21.1767, 0.229997)
-bones/11/rotation = Quaternion(-0.560622, -0.188998, 0.771273, -0.234776)
+bones/11/position = Vector3(13.1344, 20.2786, -0.251932)
+bones/11/rotation = Quaternion(-0.613934, -0.105636, 0.731026, -0.278437)
 bones/12/position = Vector3(6.66146e-06, 26.7401, 1.01901e-05)
 bones/12/rotation = Quaternion(0.148525, -0.00746884, 0.00532948, 0.988866)
 bones/13/position = Vector3(-4.95057e-06, 6.58939, 1.91707e-06)

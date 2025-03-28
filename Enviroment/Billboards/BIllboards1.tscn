@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://cch03gmig4hys"]
 
-[ext_resource type="Material" uid="uid://2dnbklqr20g7" path="res://MaterialTextures/BillBoards.tres" id="1_n6brq"]
+[ext_resource type="Material" uid="uid://2dnbklqr20g7" path="res://trash/BillBoards.tres" id="1_n6brq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x647u"]
 resource_name = "BILLBOARD_2"

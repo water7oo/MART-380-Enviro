@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://jubxd8mx88ue"]
 
-[ext_resource type="PackedScene" uid="uid://b62jutyqli6xy" path="res://Enviroment/Billboards/Construction/Scaffolding.fbx" id="1_bt732"]
-[ext_resource type="Material" uid="uid://bwrdtq25v11qf" path="res://MaterialTextures/Scaffolding1.tres" id="2_2tf3e"]
+[ext_resource type="PackedScene" path="res://Enviroment/Billboards/Construction/Scaffolding.fbx" id="1_bt732"]
+[ext_resource type="Material" uid="uid://bwrdtq25v11qf" path="res://trash/Scaffolding1.tres" id="2_2tf3e"]
 
 [node name="Scaffolding" instance=ExtResource("1_bt732")]
 

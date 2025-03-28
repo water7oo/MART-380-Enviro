@@ -5,8 +5,6 @@ extends Node
 @onready var enemyHealthMan = get_node("/root/EnemyHealthManager")
 @onready var gameJuice = get_node("/root/GameJuice")
 
-
-var global_data = GlobalResource.new()
 @export var CUSTOM_GRAVITY: float = 35.0
 var camera: Node3D = preload("res://Player/PlayerCamera.tscn").instantiate()
 var spring_arm_pivot = camera.get_node("SpringArmPivot")
@@ -26,11 +24,13 @@ var ChosenOne = false
 var startGame = false
 var tryingtoEscape = false
 
+var endGame = false
 @export var mouse_sensitivity: float = 0.005
 
 @export var armature_rot_speed: float = 1
 @export var armature_default_rot_speed: float = 1
 @onready var armature = $Armature_001
+var game_paused = false
 
 #Walk State Base movement values
 @export var BASE_SPEED: float = 6.0

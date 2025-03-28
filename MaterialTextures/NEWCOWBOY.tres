@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://b1ud5q41710hr" path="res://Shaders/OUTLINES.gdshader" id="1_0ycto"]
 [ext_resource type="Shader" uid="uid://cji4m71ho8yn7" path="res://Shaders/PS1VertexWobble.gdshader" id="2_ef2i2"]
-[ext_resource type="Texture2D" uid="uid://bdkrvec3wh6qh" path="res://My Textures/TextureGrid_32_devLight.png" id="3_k8u4r"]
+[ext_resource type="Texture2D" uid="uid://bdkrvec3wh6qh" path="res://trash/TextureGrid_32_devLight.png" id="3_k8u4r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w36hw"]
 render_priority = 0

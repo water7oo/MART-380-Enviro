@@ -1,0 +1,112 @@
+[gd_scene load_steps=11 format=3 uid="uid://qrr8mlkbjp3d"]
+
+[ext_resource type="Script" uid="uid://cg5mggrrgyog1" path="res://Game/GameEndDialogue.gd" id="1_7ij3j"]
+[ext_resource type="AudioStream" uid="uid://gc5men21nyd4" path="res://Sounds/FirstDraft_2_test (1).mp3" id="1_gk626"]
+[ext_resource type="Shader" uid="uid://ck3hfip8j04ns" path="res://Game/1BIT_SHADER.gdshader" id="1_h40bc"]
+[ext_resource type="PackedScene" uid="uid://byiwrnoah113n" path="res://ui/GameStartANIM.tscn" id="2_7ij3j"]
+[ext_resource type="FontFile" uid="uid://bnwv8pcflssa3" path="res://ui/mario_kart_ds/Mario-Kart-DS.ttf" id="3_a6brm"]
+[ext_resource type="Script" uid="uid://ncvrx6f8mc6j" path="res://Scripts/FPS.gd" id="4_gk626"]
+[ext_resource type="Script" uid="uid://d2nuyxg03ghqb" path="res://Game/Interact.gd" id="5_by5by"]
+[ext_resource type="PackedScene" uid="uid://7l5yih8w56c3" path="res://Player/PlayerCamera.tscn" id="7_ylfgh"]
+[ext_resource type="PackedScene" uid="uid://bgkmd80vrnlao" path="res://Player/COWBOYPLAYER(v4).tscn" id="8_038j3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4e4fq"]
+shader = ExtResource("1_h40bc")
+shader_parameter/dithering = true
+shader_parameter/dithering_size = 2
+shader_parameter/resolution_scale = 3
+shader_parameter/threshold = 53.325
+shader_parameter/white = Color(0.808998, 0.808998, 0.808998, 1)
+shader_parameter/black = Color(0.295867, 0.295866, 0.295866, 1)
+
+[node name="endGame" type="Node3D"]
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_gk626")
+volume_db = -28.304
+mix_target = 2
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("1_7ij3j")
+
+[node name="Preview" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Preview"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_4e4fq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="Control" type="Control" parent="Preview/SubViewportContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Preview/SubViewportContainer/Control"]
+layout_mode = 2
+offset_left = 26.0
+offset_top = 376.0
+offset_right = 146.0
+offset_bottom = 426.0
+theme_override_fonts/font = ExtResource("3_a6brm")
+theme_override_font_sizes/font_size = 60
+text = "FPS"
+script = ExtResource("4_gk626")
+
+[node name="Control2" type="Control" parent="Preview/SubViewportContainer"]
+z_index = 2
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Preview/SubViewportContainer/Control2"]
+layout_mode = 2
+offset_left = 561.0
+offset_top = 727.0
+offset_right = 1239.0
+offset_bottom = 777.0
+theme_override_fonts/font = ExtResource("3_a6brm")
+theme_override_font_sizes/font_size = 40
+text = "Right click to interact"
+script = ExtResource("5_by5by")
+
+[node name="Opener" parent="Preview/SubViewportContainer" instance=ExtResource("2_7ij3j")]
+z_index = 1
+
+[node name="SubViewport" type="SubViewport" parent="Preview/SubViewportContainer"]
+handle_input_locally = false
+scaling_3d_mode = 0
+canvas_item_default_texture_filter = 0
+size = Vector2i(1024, 768)
+render_target_update_mode = 4
+
+[node name="CamTarget2" type="Marker3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 7.53036, 3.74131, 20.8522)
+gizmo_extents = 4.42
+
+[node name="CameraSet" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("7_ylfgh")]
+transform = Transform3D(-4.37114e-08, 0, 0.999999, 0, 0.999999, 0, -0.999999, 0, -4.37114e-08, -41.765, 3.991, 18.389)
+target = NodePath("../Cowboy")
+speed = 20.0
+enabled = true
+
+[node name="Cowboy" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("8_038j3")]
+transform = Transform3D(-3.0598e-10, 0, 0.007, 0, 0.007, 0, -0.007, 0, -3.0598e-10, -42.2214, 2.97502, 12.0964)
+metadata/_edit_group_ = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Preview/SubViewportContainer/SubViewport/Cowboy"]
+transform = Transform3D(-6.24449e-06, 0, -142.857, 0, 142.857, 0, 142.857, 0, -6.24449e-06, 0.0427246, 0.0675659, 0.0141602)
+light_energy = 0.388
+light_indirect_energy = 0.17
+distance_fade_enabled = true
+distance_fade_begin = 0.0
+distance_fade_length = 122.22
+omni_range = 12.889
+omni_attenuation = 0.736

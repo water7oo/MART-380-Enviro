@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dabjr7mly443e"]
 
-[ext_resource type="Material" uid="uid://2dnbklqr20g7" path="res://MaterialTextures/BillBoards.tres" id="1_sup40"]
+[ext_resource type="Material" uid="uid://2dnbklqr20g7" path="res://trash/BillBoards.tres" id="1_sup40"]
 
 [node name="Billboards" type="Node3D"]
 

@@ -1,11 +1,12 @@
 [gd_resource type="Sky" load_steps=2 format=3 uid="uid://duq3mkkmxy2v1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l1opr"]
-sky_curve = 2.57226
+sky_curve = 1.88301
 sky_energy_multiplier = 0.0
-ground_curve = 0.045448
+sky_cover_modulate = Color(0, 0, 0, 1)
+ground_curve = 0.00630346
+ground_energy_multiplier = 0.0
 sun_curve = 0.0549033
-energy_multiplier = 8.6
 
 [resource]
 sky_material = SubResource("ProceduralSkyMaterial_l1opr")

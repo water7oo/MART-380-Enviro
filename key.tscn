@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfljbosbln8bq"]
+
+[ext_resource type="PackedScene" uid="uid://dgx42r57fwcsv" path="res://Blender/key.fbx" id="1_8m8t5"]
+
+[sub_resource type="Animation" id="Animation_15lrv"]
+resource_name = "Floating"
+length = 2.4735
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 1.1, 2.46667),
+"transitions": PackedFloat32Array(0.267943, 4.75683, 10.5561),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.12461, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cube:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.1, 2.46667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.5708, 0, 0), Vector3(-1.5708, 3.14159, 0), Vector3(-1.5708, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_52w3a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cube:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.5708, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6xh6a"]
+_data = {
+&"Floating": SubResource("Animation_15lrv"),
+&"RESET": SubResource("Animation_52w3a")
+}
+
+[node name="key" instance=ExtResource("1_8m8t5")]
+
+[node name="Cube" parent="." index="0"]
+transform = Transform3D(100, 0, 0, 0, -0.000361999, 100, 0, -100, -0.000361999, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_6xh6a")
+}

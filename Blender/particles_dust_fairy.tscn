@@ -11,7 +11,7 @@ colors = PackedColorArray(0.52, 0.52, 0.52, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 gradient = SubResource("Gradient_o2y0t")
 
 [sub_resource type="Curve" id="Curve_qqwki"]
-_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(0.865217, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(0.943478, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_uc6tr"]
@@ -22,15 +22,15 @@ emission_shape = 3
 emission_box_extents = Vector3(20, 20, 20)
 initial_velocity_min = 1.0
 initial_velocity_max = 2.0
-angular_velocity_min = 30.0
-angular_velocity_max = 60.0
+angular_velocity_min = 0.0999839
+angular_velocity_max = 0.499984
 gravity = Vector3(0, 0, 0)
-scale_min = 0.01
-scale_max = 0.02
+scale_min = 0.0
+scale_max = 0.01
 scale_curve = SubResource("CurveTexture_uc6tr")
 color_ramp = SubResource("GradientTexture1D_qqwki")
 
-[sub_resource type="QuadMesh" id="QuadMesh_t0ht2"]
+[sub_resource type="QuadMesh" id="QuadMesh_o2y0t"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -38,4 +38,4 @@ color_ramp = SubResource("GradientTexture1D_qqwki")
 material_override = SubResource("StandardMaterial3D_o2y0t")
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_3o6ko")
-draw_pass_1 = SubResource("QuadMesh_t0ht2")
+draw_pass_1 = SubResource("QuadMesh_o2y0t")

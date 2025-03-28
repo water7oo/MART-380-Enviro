@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ddyhhkuglawml"]
 
-[ext_resource type="PackedScene" uid="uid://bmd8s3mlienm1" path="res://Enviroment/Billboards/Billboards_Layout.fbx" id="1_rd38p"]
-[ext_resource type="Texture2D" uid="uid://cuv5rccoj6qgo" path="res://My Textures/IMG_2576.png" id="2_l7u8l"]
+[ext_resource type="PackedScene" path="res://Enviroment/Billboards/Billboards_Layout.fbx" id="1_rd38p"]
+[ext_resource type="Texture2D" uid="uid://cuv5rccoj6qgo" path="res://trash/IMG_2576.png" id="2_l7u8l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_by38l"]
 albedo_texture = ExtResource("2_l7u8l")

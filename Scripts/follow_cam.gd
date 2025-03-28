@@ -1,7 +1,6 @@
 extends Node3D
 
-@onready var gameJuice = get_node("/root/GameJuice")
-@onready var enemy = get_node("/root/EnemyHealthManager")
+@onready var gameJuice = get_node("res://Scripts/gameJuice.gd")
 @export var target: NodePath
 @export var speed := 1.0
 @export var enabled: bool
@@ -30,9 +29,12 @@ func _ready():
 	#original_global_transform = target_node.global_transform
 
 func _unhandled_input(event):
-	if Input.is_action_just_pressed("quit_game"):
-		print("Quit Game")
-		get_tree().quit()
+	#if Input.is_action_just_pressed("quit_game"):
+		#print("Quit Game")
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+		
+			
 	
 	if Input.is_action_just_pressed("mouse_show"):
 		# Toggle the visibility of the mouse
@@ -88,7 +90,6 @@ func _physics_process(delta):
 
 func _process(delta: float) -> void:
 	_unhandled_input(delta)
-	playShake()
 	if Input.is_action_just_pressed("shake_test"):
 		applyShake(.04,0.08)
 		
@@ -106,16 +107,16 @@ func followTarget(delta):
 		speed = 20
 		target_node = $"../Cowboy"
 	elif Global.is_final_boss:
-		speed = 2
-		target_node = $"../../../../FinalBossCam"
+		speed = 1
+		target_node = $"../FinalBossCam"
 		
 	if Global.ChosenOne:
-		speed = 2
-		target_node = $"../../../../ChosenOneCam"
+		speed = 1
+		target_node = $"../ChosenOneCam"
 		
 	if Global.tryingtoEscape:
-		speed = 10
-		target_node = $"../../../../Escape"
+		speed = 5
+		target_node = $"../Escape"
 
 	
 
@@ -136,10 +137,10 @@ func applyShake(period, magnitude):
 
 	self.transform = initial_transform
 
-func playShake():
-	if EnemyHealthManager.taking_damage == true:
-		applyShake(.02,0.08)
-		pass
-	if PlayerHealthManager.taking_damage == true:
-		applyShake(.02,0.08)
-		pass
+#func playShake():
+	#if EnemyHealthManager.taking_damage == true:
+		#applyShake(.02,0.08)
+		#pass
+	#if PlayerHealthManager.taking_damage == true:
+		#applyShake(.02,0.08)
+		#pass

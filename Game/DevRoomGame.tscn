@@ -1,13 +1,17 @@
-[gd_scene load_steps=33 format=3 uid="uid://b2ud3ury8epgi"]
+[gd_scene load_steps=39 format=3 uid="uid://b2ud3ury8epgi"]
 
+[ext_resource type="Script" uid="uid://b52ne8xiee3vj" path="res://Game/gameEnd.gd" id="1_2cu13"]
 [ext_resource type="Environment" uid="uid://cadv2uehcxqkc" path="res://MaterialTextures/NewGame.tres" id="1_c0qo6"]
-[ext_resource type="Material" uid="uid://dcuvjs33ebpe3" path="res://MaterialTextures/Room.tres" id="1_ewgn2"]
 [ext_resource type="AudioStream" uid="uid://gc5men21nyd4" path="res://Sounds/FirstDraft_2_test (1).mp3" id="1_td47c"]
 [ext_resource type="AudioStream" uid="uid://coqx6x056oxum" path="res://Sounds/pixel-sound-effect-3-82880.mp3" id="2_37wf3"]
 [ext_resource type="Shader" uid="uid://ck3hfip8j04ns" path="res://Game/1BIT_SHADER.gdshader" id="3_8mhp7"]
 [ext_resource type="PackedScene" uid="uid://hppylynqdlmw" path="res://Blender/BloodKatana.blend" id="3_td47c"]
+[ext_resource type="FontFile" uid="uid://bnwv8pcflssa3" path="res://ui/mario_kart_ds/Mario-Kart-DS.ttf" id="4_37wf3"]
 [ext_resource type="PackedScene" uid="uid://byiwrnoah113n" path="res://ui/GameStartANIM.tscn" id="4_rsb4y"]
 [ext_resource type="PackedScene" uid="uid://brejidgy2nq2j" path="res://ui/Pausing.tscn" id="4_x187o"]
+[ext_resource type="Script" uid="uid://ncvrx6f8mc6j" path="res://Scripts/FPS.gd" id="5_cl4fa"]
+[ext_resource type="Script" uid="uid://d2nuyxg03ghqb" path="res://Game/Interact.gd" id="6_cl4fa"]
+[ext_resource type="Material" uid="uid://t18do042j80c" path="res://MaterialTextures/Enviroment2.tres" id="7_6ckoi"]
 [ext_resource type="Shader" uid="uid://b1hg6btlggl78" path="res://Shaders/uhhhhh.gdshader" id="7_kt4n2"]
 [ext_resource type="PackedScene" uid="uid://bl275sfu3mmds" path="res://Enemy/Enemy2.tscn" id="9_38om4"]
 [ext_resource type="PackedScene" uid="uid://bgkmd80vrnlao" path="res://Player/COWBOYPLAYER(v4).tscn" id="10_tkxv2"]
@@ -15,21 +19,18 @@
 [ext_resource type="PackedScene" uid="uid://7l5yih8w56c3" path="res://Player/PlayerCamera.tscn" id="11_hq17w"]
 [ext_resource type="Texture2D" uid="uid://cw6o24ely31qv" path="res://My Textures/realistic-human-eye-texture-free-766.png" id="12_td47c"]
 [ext_resource type="PackedScene" uid="uid://dbh30cmkqb16" path="res://Blender/sksleton.tscn" id="14_dsa57"]
-[ext_resource type="Script" uid="uid://c0ybhxjl18ebc" path="res://Game/StartGame.gd" id="16_dsa57"]
-[ext_resource type="AudioStream" uid="uid://dv40gkdpvmk68" path="res://Audio/footstep_snow_002.ogg" id="17_6ckoi"]
-[ext_resource type="Script" uid="uid://ctu1c0gny0mq2" path="res://Game/FinalBoss.gd" id="17_trpa7"]
+[ext_resource type="PackedScene" uid="uid://3tpica0emvtg" path="res://Blender/key.tscn" id="14_j5xoq"]
+[ext_resource type="AudioStream" uid="uid://dv40gkdpvmk68" path="res://Sounds/footstep_snow_002.ogg" id="17_6ckoi"]
 [ext_resource type="PackedScene" uid="uid://deebu6uo31f27" path="res://Blender/pine_tree_1.tscn" id="18_6ckoi"]
-[ext_resource type="Script" uid="uid://cusqgcw1w8llb" path="res://Game/FinalBoss2.gd" id="19_cl4fa"]
-[ext_resource type="Script" uid="uid://pb5udja8sjgp" path="res://Game/ChosenOne.gd" id="19_tks7g"]
 [ext_resource type="PackedScene" uid="uid://be54ml05hnlpk" path="res://Blender/particles_dust_fairy.tscn" id="22_j5xoq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ov31c"]
 shader = ExtResource("3_8mhp7")
 shader_parameter/dithering = true
-shader_parameter/dithering_size = 9
-shader_parameter/resolution_scale = 2
-shader_parameter/threshold = 43.99
-shader_parameter/white = Color(1, 1, 1, 1)
+shader_parameter/dithering_size = 3
+shader_parameter/resolution_scale = 3
+shader_parameter/threshold = 53.325
+shader_parameter/white = Color(0.808998, 0.808998, 0.808998, 1)
 shader_parameter/black = Color(0.295867, 0.295866, 0.295866, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_md3uv"]
@@ -45,52 +46,342 @@ texture_filter = 0
 
 [sub_resource type="SphereMesh" id="SphereMesh_mlbvo"]
 
+[sub_resource type="GDScript" id="GDScript_37wf3"]
+script/source = "extends Area3D
+
+
+@onready var opener = get_node(\"../Preview/SubViewportContainer/Opener\")
+@onready var bgm = get_node(\"../../../../BGM\")
+
+func _ready() -> void:
+	# Connect the dialogue_ended signal to a custom function
+	DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
+
+func _process(delta: float) -> void:
+	#print(Global.startGame)
+	pass
+
+func _on_area_entered(area):
+	if area.name == \"PlayerDialogue\":
+		Global.can_move = false
+		DialogueManager.show_example_dialogue_balloon(load(\"res://Dialogue/StartGame.dialogue\"), \"start\")
+
+func _on_dialogue_ended(resource):
+	# This function will trigger when dialogue ends
+	print(\"Dialogue ended:\", resource)
+	Global.can_move = true
+	Global.startGame = true
+	bgm.play()
+"
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_trpa7"]
 size = Vector3(0.733521, 0.479706, 0.201141)
+
+[sub_resource type="GDScript" id="GDScript_cl4fa"]
+script/source = "extends Area3D
+
+@export var camera = $\"../Preview/SubViewportContainer/SubViewport/CameraSet\"
+@export var bgm = Node3D
+@export var finalBossCutsceneMarker = Node3D
+@export var scaryLights = Node3D # Correcting reference to the light
+@onready var gameJuice = get_node(\"/root/GameJuice\")
+@onready var enemy = get_node(\"/root/EnemyHealthManager\")
+@export var target: NodePath
+@export var speed := 1.0
+@export var enabled: bool
+@export var spring_arm_pivot: Node3D
+@export var mouse_sensitivity: float = 0.005
+@export var joystick_sensitivity: float = 0.005 
+var cam_lerp_speed: float = .005
+
+@onready var scaryNoise1 = $Scarynoise1
+
+var is_mouse_visible: bool = true
+
+@export var period: float = .04
+@export var magnitude: float = 0.08
+
+@export var y_cam_rot_dist: float = -80
+@export var x_cam_rot_dist: float = 1
+
+
+
+var original_global_transform: Transform3D
+var target_node: Node3D
+
+func _ready() -> void:
+	# Connect the dialogue_ended signal to a custom function
+	DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
+
+func _process(delta: float) -> void:
+	#print(\"check keys\" + str(Global.pleaseGiveKeys))
+	pass
+
+func _on_area_entered(area):
+	if area.name == \"PlayerDialogue\":
+		Global.can_move = false
+		DialogueManager.show_example_dialogue_balloon(load(\"res://Dialogue/FinalBoss.dialogue\"), \"start\")
+		Global.is_final_boss = true
+		bgm.stop()
+
+		
+		await get_tree().create_timer(2).timeout
+		
+		scaryNoise1.play()
+		scaryLights.visible = true  # Show the scary lights
+
+func _on_dialogue_ended(resource):
+	print(\"Dialogue ended:\", resource)
+
+	# Only set the flag to true if the final boss dialogue ends
+	if resource.resource_path == \"res://Dialogue/FinalBoss.dialogue\":
+		print(\"Final Boss dialogue ended!\")
+		Global.pleaseGiveKeys = true
+
+	scaryLights.visible = false  # Hide the scary lights
+	Global.can_move = true
+	scaryNoise1.play()
+	bgm.play()
+	Global.is_final_boss = false
+	
+"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ckoi"]
 size = Vector3(0.265793, 0.171082, 0.214844)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_37wf3"]
-size = Vector3(4.77429, 2.71094, 0.20752)
+size = Vector3(3.34, 2.71094, 0.20752)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tks7g"]
 size = Vector3(6.0448, 1, 0.168884)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2cu13"]
+size = Vector3(1.83557, 1, 1.30867)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cl4fa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j5xoq"]
 size = Vector3(1, 1.52904, 1.2399)
 
+[sub_resource type="GDScript" id="GDScript_j5xoq"]
+script/source = "extends Area3D
+
+@export var camera = $\"../Preview/SubViewportContainer/SubViewport/CameraSet\"
+@export var bgm = Node3D
+@onready var player = get_node(\"../Preview/SubViewportContainer/SubViewport/Cowboy\")
+@export var finalBossCutsceneMarker = Node3D
+@export var scaryLights = Node3D # Correcting reference to the light
+@onready var gameJuice = get_node(\"/root/GameJuice\")
+@onready var enemy = get_node(\"/root/EnemyHealthManager\")
+@export var target: NodePath
+@export var speed := 1.0
+@export var enabled: bool
+@export var spring_arm_pivot: Node3D
+@export var mouse_sensitivity: float = 0.005
+@export var joystick_sensitivity: float = 0.005 
+var cam_lerp_speed: float = .005
+
+@onready var scaryNoise1 = $Scarynoise1
+
+var is_mouse_visible: bool = true
+
+@export var period: float = .04
+@export var magnitude: float = 0.08
+
+@export var y_cam_rot_dist: float = -80
+@export var x_cam_rot_dist: float = 1
+
+
+
+var original_global_transform: Transform3D
+var target_node: Node3D
+
+func _ready() -> void:
+	# Connect the dialogue_ended signal to a custom function
+	DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
+
+func _process(delta: float) -> void:
+	#print(\"check keys\" + str(Global.pleaseGiveKeys))
+	pass
+
+func _on_area_entered(area):
+	if area.name == \"PlayerDialogue\":
+		Global.can_move = false
+		DialogueManager.show_example_dialogue_balloon(load(\"res://Dialogue/FinalBoss2.dialogue\"), \"start\")
+		Global.is_final_boss = true
+		Global.tryingtoEscape = false
+		Global.endGame = false
+		bgm.stop()
+
+		
+		await get_tree().create_timer(2).timeout
+		
+		scaryNoise1.play()
+		scaryLights.visible = true  # Show the scary lights
+
+func _on_dialogue_ended(resource):
+	print(\"Dialogue ended:\", resource)
+
+	# Only set the flag to true if the final boss dialogue ends
+	if resource.resource_path == \"res://Dialogue/FinalBoss2.dialogue\":
+		print(\"Final Boss dialogue ended!\")
+		await get_tree().create_timer(1.5).timeout
+		get_tree().reload_current_scene()
+		Global.pleaseGiveKeys = true
+
+		scaryLights.visible = false  # Hide the scary lights
+	Global.can_move = true
+	scaryNoise1.play()
+	bgm.play()
+	Global.is_final_boss = false
+	Global.tryingtoEscape = false
+	Global.endGame = true
+	
+	
+	
+"
+
+[sub_resource type="GDScript" id="GDScript_2cu13"]
+script/source = "extends Area3D
+
+@export var camera = $\"../Preview/SubViewportContainer/SubViewport/CameraSet\"
+@export var finalBossCutsceneMarker = Node3D
+@export var scaryLights2 = Node3D  # Correcting reference to the light
+@onready var gameJuice = get_node(\"/root/GameJuice\")
+@onready var enemy = get_node(\"/root/EnemyHealthManager\")
+@export var target: NodePath
+@export var speed := 1.0
+@export var enabled: bool
+@export var spring_arm_pivot: Node3D
+@export var mouse_sensitivity: float = 0.005
+@export var joystick_sensitivity: float = 0.005 
+var cam_lerp_speed: float = .005
+
+@onready var scaryNoise2 = $ScaryNoise2
+
+var is_mouse_visible: bool = true
+
+@export var period: float = .04
+@export var magnitude: float = 0.08
+
+@export var y_cam_rot_dist: float = -80
+@export var x_cam_rot_dist: float = 1
+
+
+
+var original_global_transform: Transform3D
+var target_node: Node3D
+
+func _ready() -> void:
+	# Connect the dialogue_ended signal to a custom function
+	DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
+
+func _process(delta: float) -> void:
+	pass
+
+func _on_area_entered(area):
+	if area.name == \"PlayerDialogue\":
+		
+		if Global.pleaseGiveKeys:
+			DialogueManager.show_example_dialogue_balloon(load(\"res://Dialogue/ChosenOne2dialogue.dialogue\"), \"start\")
+		else:
+			DialogueManager.show_example_dialogue_balloon(load(\"res://Dialogue/ChosenOnedialogue.dialogue\"), \"start\")
+		Global.can_move = false
+		Global.ChosenOne = true
+		
+		await get_tree().create_timer(2).timeout
+		
+		scaryNoise2.play()
+		scaryLights2.visible = true  # Show the scary lights
+
+func _on_dialogue_ended(resource):
+	# This function will trigger when dialogue ends
+	print(\"Dialogue ended:\", resource)
+	scaryLights2.visible = false  # Hide the scary lights
+	Global.can_move = true
+	scaryNoise2.play()
+	Global.ChosenOne = false
+	
+"
+
 [node name="TRAINING" type="Node3D"]
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
-transform = Transform3D(-1, 0, 8.74229e-08, 0, 1, 0, -8.74229e-08, 0, -1, 56.0925, 1.44995, 31.5145)
+[node name="EndGame" type="Node3D" parent="."]
+script = ExtResource("1_2cu13")
+
+[node name="ChosenOne" type="OmniLight3D" parent="."]
+transform = Transform3D(-1, 0, 8.74229e-08, 0, 1, 0, -8.74229e-08, 0, -1, 52.5173, 6.52585, 31.5145)
 visible = false
-light_energy = 13.26
+light_energy = 3.617
 omni_range = 12.8897
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="."]
-transform = Transform3D(-1, 0, 8.74229e-08, 0, 1, 0, -8.74229e-08, 0, -1, -24.9321, 1.44995, 33.7682)
-light_energy = 100.0
+transform = Transform3D(-1, 0, 8.74229e-08, 0, 1, 0, -8.74229e-08, 0, -1, -30.9987, 1.44995, 33.7682)
+light_energy = 20.0
 omni_range = 17.138
+omni_attenuation = 2.918
+
+[node name="OmniLight3D10" type="OmniLight3D" parent="."]
+transform = Transform3D(-1, 0, 8.74229e-08, 0, 1, 0, -8.74229e-08, 0, -1, -44.1394, 1.44995, 23.3917)
+light_energy = 20.0
+omni_range = 17.138
+omni_attenuation = 2.918
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="."]
-transform = Transform3D(-1, 0, 8.74229e-08, 0, 1, 0, -8.74229e-08, 0, -1, 6.88258, 1.44995, 31.5145)
-light_energy = 13.26
-omni_range = 5.672
-omni_attenuation = 2.184
+transform = Transform3D(-1, 0, 8.74229e-08, 0, 1, 0, -8.74229e-08, 0, -1, -11.7423, 1.44995, 33.7682)
+light_energy = 20.0
+omni_range = 17.138
+omni_attenuation = 2.918
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D9" type="OmniLight3D" parent="."]
+transform = Transform3D(-1, 0, 8.74229e-08, 0, 1, 0, -8.74229e-08, 0, -1, 9.82134, 1.44995, 33.7682)
+light_energy = 20.0
+omni_range = 17.138
+omni_attenuation = 2.918
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="."]
+transform = Transform3D(-1, 0, 8.74229e-08, 0, 1, 0, -8.74229e-08, 0, -1, -24.9321, 1.44995, -10.0558)
+light_energy = 20.0
+omni_range = 17.138
+omni_attenuation = 2.918
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="."]
+transform = Transform3D(-1, 0, 8.74229e-08, 0, 1, 0, -8.74229e-08, 0, -1, 7.70292, 1.44995, -10.0558)
+light_energy = 20.0
+omni_range = 17.138
+omni_attenuation = 2.918
+
+[node name="OmniLight3D7" type="OmniLight3D" parent="."]
+transform = Transform3D(-1, 0, 8.74229e-08, 0, 1, 0, -8.74229e-08, 0, -1, 40.0381, 1.44995, -10.0558)
+light_energy = 20.0
+omni_range = 17.138
+omni_attenuation = 2.918
+
+[node name="OmniLight3D8" type="OmniLight3D" parent="."]
+transform = Transform3D(-1, 0, 8.74229e-08, 0, 1, 0, -8.74229e-08, 0, -1, 61.2041, 1.44995, -10.0558)
+light_energy = 20.0
+omni_range = 17.138
+omni_attenuation = 2.918
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(-1, 2.5411e-21, 8.74229e-08, 8.74229e-08, -4.37114e-08, 1, 3.82138e-15, 1, 4.37114e-08, -88.5928, 13.0823, 16.5047)
+light_energy = 150.0
+shadow_blur = 0.452
+spot_range = 11.081
+spot_angle = 14.509
+spot_angle_attenuation = 0.138696
+
+[node name="FinalBossLights" type="OmniLight3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -153.372, 43.8671, 22.2829)
 visible = false
-light_energy = 1500.0
+light_energy = 16.0
+light_indirect_energy = 0.233
 omni_range = 109.409
-omni_attenuation = 0.589
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_td47c")
-volume_db = -13.823
+volume_db = -28.304
+mix_target = 2
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.115836, -0.236257, 0.964762, 0.337617, 0.922834, 0.185452, -0.934129, 0.304238, 0.186661, -69.2595, -7.29807, 11.6902)
@@ -126,9 +417,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Preview"]
+texture_filter = 1
 material = SubResource("ShaderMaterial_ov31c")
 layout_mode = 1
 anchors_preset = 15
@@ -137,10 +428,41 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="Preview/SubViewportContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Preview/SubViewportContainer/Control"]
+z_index = 2
+layout_mode = 2
+offset_left = 5.0
+offset_top = 7.0
+offset_right = 125.0
+offset_bottom = 57.0
+theme_override_fonts/font = ExtResource("4_37wf3")
+theme_override_font_sizes/font_size = 12
+text = "FPS"
+script = ExtResource("5_cl4fa")
+
+[node name="Control2" type="Control" parent="Preview/SubViewportContainer"]
+z_index = 2
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Preview/SubViewportContainer/Control2"]
+layout_mode = 2
+offset_left = 561.0
+offset_top = 727.0
+offset_right = 1239.0
+offset_bottom = 777.0
+theme_override_fonts/font = ExtResource("4_37wf3")
+theme_override_font_sizes/font_size = 40
+text = "Right click to interact"
+script = ExtResource("6_cl4fa")
 
 [node name="Opener" parent="Preview/SubViewportContainer" instance=ExtResource("4_rsb4y")]
 z_index = 1
+
+[node name="Pausing" parent="Preview/SubViewportContainer" instance=ExtResource("4_x187o")]
 
 [node name="SubViewport" type="SubViewport" parent="Preview/SubViewportContainer"]
 handle_input_locally = false
@@ -150,11 +472,11 @@ size = Vector2i(1024, 768)
 render_target_update_mode = 4
 
 [node name="BloodKatana2" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("3_td47c")]
-transform = Transform3D(2.51, 0, 0, 0, -2.41464, -0.685278, 0, 0.685278, -2.41464, -91.6559, 13.8264, 14.2674)
+transform = Transform3D(1.38, 0, 0, 0, -1.32757, -0.376767, 0, 0.376767, -1.32757, -88.7756, 8.48612, 15.6532)
 
 [node name="Floor" type="CSGCombiner3D" parent="Preview/SubViewportContainer/SubViewport"]
 transform = Transform3D(-3.40497e-08, -35.6877, 0, 0.778967, -1.55995e-06, 0, 0, 0, 17.9162, 0, 1.15208, 10)
-material_overlay = ExtResource("1_ewgn2")
+material_overlay = ExtResource("7_6ckoi")
 use_collision = true
 collision_layer = 3
 collision_mask = 3
@@ -168,24 +490,20 @@ transform = Transform3D(11.3419, 9.7134e-10, 0, -3.10862e-14, 9.38252, 0, 0, 0, 
 size = Vector3(0.0705197, 0.654388, 0.368217)
 
 [node name="MeshInstance3D2" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(3.35195, 0, 0, -5.57332e-14, 2.773, 0, 0, 0, 2.578, 0.269024, 1.57766, 0.379235)
-size = Vector3(0.400525, 0.0637435, 0.183119)
+transform = Transform3D(3.35194, 0, 0, -6.23945e-14, 2.773, 0, 0, 0, 2.578, -12.3935, 1.69567, 0.379235)
+size = Vector3(8.79938, 0.0637435, 0.183119)
 
 [node name="MeshInstance3D3" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(3.35195, 0, 0, -5.63993e-14, 2.773, 0, 0, 0, 2.578, 1.8339, 1.84094, 0.379235)
-size = Vector3(0.400525, 0.0637435, 0.183119)
+transform = Transform3D(3.35191, 0, 0, -7.28306e-14, 2.773, 0, 0, 0, 2.578, -4.45281, 1.52792, 0.379235)
+size = Vector3(3.73444, 0.0637435, 0.183119)
 
 [node name="MeshInstance3D4" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(3.35195, 0, 0, -5.68434e-14, 2.773, 0, 0, 0, 2.578, 1.8339, 2.12601, 0.379235)
-size = Vector3(0.400525, 0.0637435, 0.183119)
-
-[node name="MeshInstance3D5" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(3.35195, 0, 0, -5.79536e-14, 2.773, 0, 0, 0, 2.578, 4.0933, 2.34358, 0.379235)
-size = Vector3(0.400525, 0.0637435, 0.183119)
+transform = Transform3D(3.35191, 0, 0, -7.37188e-14, 2.773, 0, 0, 0, 2.578, -9.69964, 1.33452, 0.379235)
+size = Vector3(3.73444, 0.0637435, 0.183119)
 
 [node name="MeshInstance3D7" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
-transform = Transform3D(3.35194, 0, 0, -5.83977e-14, 2.773, 0, 0, 0, 2.578, 5.62582, 2.56357, 0.379235)
-size = Vector3(0.400525, 0.0637435, 0.183119)
+transform = Transform3D(3.35191, 0, 0, -7.19425e-14, 2.773, 0, 0, 0, 2.578, -7.70276, 2.20774, 0.379235)
+size = Vector3(6.58112, 0.304821, 0.183119)
 
 [node name="MeshInstance3D18" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
 transform = Transform3D(0.225, 6.92727e-05, 1.65759e-08, 1.17091e-06, -0.0040303, 0.224965, 6.77566e-05, -0.229965, -0.00394269, 6.56669, -4.32509, 0.123383)
@@ -199,6 +517,14 @@ size = Vector3(18.2343, 9.86572, 1.4822)
 transform = Transform3D(6.18164e-10, -3.32169e-06, 42.6988, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 18.7111, -1.69947, 0.72105)
 size = Vector3(18.2343, 7.32482, 1.02622)
 
+[node name="MeshInstance3D22" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(6.18164e-10, -3.32167e-06, 42.6975, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 8.27526, 1.91408, 0.645081)
+size = Vector3(4.94088, 0.931716, 0.537402)
+
+[node name="MeshInstance3D23" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(6.18164e-10, -3.32167e-06, 42.6975, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 8.27526, 1.91408, 0.0998416)
+size = Vector3(4.94088, 0.931716, 0.537402)
+
 [node name="MeshInstance3D21" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
 transform = Transform3D(-3.52729e-08, -1.87727e-06, 42.6984, -0.0176137, -0.0128655, -0.000170963, 0.00030867, -0.734131, 1.46468e-06, 18.7111, -2.03551, 0.999301)
 size = Vector3(18.2343, 2.05929, 1.02622)
@@ -206,8 +532,6 @@ size = Vector3(18.2343, 2.05929, 1.02622)
 [node name="MeshInstance3D20" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
 transform = Transform3D(6.18164e-10, -3.32169e-06, 42.6988, 0.000308671, -0.734131, -8.40434e-05, 0.0176137, 0.0128655, 8.54554e-05, 18.7111, -1.59242, -0.437508)
 size = Vector3(18.2343, 7.03319, 1.02622)
-
-[node name="Pausing" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("4_x187o")]
 
 [node name="ColorRect" type="ColorRect" parent="Preview/SubViewportContainer/SubViewport"]
 visible = false
@@ -222,7 +546,7 @@ mouse_force_pass_scroll_events = false
 color = Color(0, 0, 0, 1)
 
 [node name="Enemy2" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("9_38om4")]
-transform = Transform3D(-0.606218, 0, 0.349999, 0, 0.7, 0, -0.349999, 0, -0.606218, -47.457, 1.29555, 19.7019)
+transform = Transform3D(-0.606218, 0, 0.349999, 0, 0.7, 0, -0.349999, 0, -0.606218, -43.6482, 1.29555, 22.2624)
 metadata/_edit_group_ = true
 
 [node name="CamTarget2" type="Marker3D" parent="Preview/SubViewportContainer/SubViewport"]
@@ -230,20 +554,27 @@ transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 7.53036, 3.74131, 20.85
 gizmo_extents = 4.42
 
 [node name="CameraSet" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("11_hq17w")]
-transform = Transform3D(-4.37114e-08, 0, 0.999999, 0, 0.999999, 0, -0.999999, 0, -4.37114e-08, -41.7651, 0.966247, 14.3488)
+transform = Transform3D(-4.37113e-08, 0, -0.999999, 0, 0.999999, 0, 0.999999, 0, -4.37113e-08, 142.693, 3.991, 8.63043)
 target = NodePath("../Cowboy")
 speed = 20.0
 enabled = true
 
+[node name="key" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("14_j5xoq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.893, 2.29768, -9.83723)
+
 [node name="Cowboy" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("10_tkxv2")]
-transform = Transform3D(-3.0598e-10, 0, 0.007, 0, 0.007, 0, -0.007, 0, -3.0598e-10, 142.473, 1.17678, 12.0964)
+transform = Transform3D(-3.05979e-10, 0, -0.007, 0, 0.007, 0, 0.007, 0, -3.05979e-10, 141.231, 2.97502, 14.923)
 metadata/_edit_group_ = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Preview/SubViewportContainer/SubViewport/Cowboy"]
 transform = Transform3D(-6.24449e-06, 0, -142.857, 0, 142.857, 0, 142.857, 0, -6.24449e-06, 0.0427246, 0.0675659, 0.0141602)
-light_energy = 1.863
-omni_range = 8.171
-omni_attenuation = -0.37
+light_energy = 0.388
+light_indirect_energy = 0.17
+distance_fade_enabled = true
+distance_fade_begin = 0.0
+distance_fade_length = 122.22
+omni_range = 12.889
+omni_attenuation = 0.736
 
 [node name="Skeleton2" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("14_dsa57")]
 transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, -175.136, -423.44, 19.2783)
@@ -294,17 +625,17 @@ mesh = SubResource("SphereMesh_mlbvo")
 skeleton = NodePath("../..")
 
 [node name="Skeleton3" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("14_dsa57")]
-transform = Transform3D(-93.4444, 0, -10.3873, 0, 94.02, 0, 10.3873, 0, -93.4444, 57.0346, -138.212, 31.1331)
+transform = Transform3D(-91.8039, -17.5402, -10.2049, -17.4328, 92.3694, -1.93783, 10.3873, 0, -93.4444, 87.3903, -138.212, 31.1331)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport/Skeleton3"]
-transform = Transform3D(0.0363658, 0.035128, 0.00149363, -0.033131, 0.0335171, 0.0183742, 0.0117704, -0.0141881, 0.0471045, 0.0064373, 1.59135, 0.0296115)
+transform = Transform3D(0.045712, 0.0209453, -0.00551199, -0.0174645, 0.0432602, 0.0195504, 0.0128093, -0.0157646, 0.0463257, 0.00643736, 1.59135, 0.0296115)
 material_override = SubResource("StandardMaterial3D_dsa57")
 mesh = SubResource("SphereMesh_mlbvo")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Preview/SubViewportContainer/SubViewport/Skeleton3"]
-transform = Transform3D(0.0475536, 0.0103931, 0.0137592, -0.0162468, 0.0405282, 0.0255377, -0.00577699, -0.0284274, 0.0414389, 0.012112, 1.59135, -0.0269664)
+transform = Transform3D(0.0357421, 0.035695, -0.00265331, -0.0329033, 0.0342417, 0.0174226, 0.0140907, -0.0105849, 0.047414, 0.0121121, 1.59135, -0.0269665)
 material_override = SubResource("StandardMaterial3D_dsa57")
 mesh = SubResource("SphereMesh_mlbvo")
 skeleton = NodePath("../..")
@@ -691,133 +1022,174 @@ metadata/_edit_group_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.76768)
 metadata/_edit_group_ = true
 
-[node name="Area3D" type="Area3D" parent="."]
-script = ExtResource("16_dsa57")
+[node name="Area3D" type="Area3D" parent="Preview/SubViewportContainer/SubViewport"]
+script = SubResource("GDScript_37wf3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Preview/SubViewportContainer/SubViewport/Area3D"]
 transform = Transform3D(71.17, 0, 0, 0, 71.17, 0, 0, 0, 71.17, 128.764, 8.21969, 13.861)
 shape = SubResource("BoxShape3D_trpa7")
 
-[node name="FinalBoss" type="Area3D" parent="."]
-script = ExtResource("17_trpa7")
+[node name="FinalBoss" type="Area3D" parent="Preview/SubViewportContainer/SubViewport" node_paths=PackedStringArray("bgm", "finalBossCutsceneMarker", "scaryLights")]
+script = SubResource("GDScript_cl4fa")
+bgm = NodePath("../../../../BGM")
+finalBossCutsceneMarker = NodePath("../FinalBossCam")
+scaryLights = NodePath("../../../../FinalBossLights")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FinalBoss"]
-transform = Transform3D(71.17, 0, 0, 0, 71.17, 0, 0, 0, 71.17, -100.092, 11.5365, 16.5596)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Preview/SubViewportContainer/SubViewport/FinalBoss"]
+transform = Transform3D(71.17, 0, 0, 0, 71.17, 0, 0, 0, 71.17, -98.4111, 11.5365, 16.5596)
 shape = SubResource("BoxShape3D_6ckoi")
+debug_color = Color(0, 0.595, 0.7, 1)
 
-[node name="Scarynoise1" type="AudioStreamPlayer" parent="FinalBoss"]
+[node name="Scarynoise1" type="AudioStreamPlayer" parent="Preview/SubViewportContainer/SubViewport/FinalBoss"]
 stream = ExtResource("17_6ckoi")
-volume_db = 18.431
+volume_db = -14.481
 pitch_scale = 2.46
 
-[node name="PineTree1" parent="." instance=ExtResource("18_6ckoi")]
-transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -29.7259, 1.1661, 31.0437)
+[node name="PineTree1" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -29.7259, 1.1661, 28.8705)
 
-[node name="PineTree2" parent="." instance=ExtResource("18_6ckoi")]
-transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -18.4855, 1.1661, 31.0437)
+[node name="PineTree4" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -25.1542, 1.1661, 38.2779)
 
-[node name="PineTree3" parent="." instance=ExtResource("18_6ckoi")]
-transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -11.9053, 1.1661, 35.7222)
+[node name="PineTree5" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -19.961, 1.1661, 38.2779)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="PineTree2" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -18.4855, 1.1661, 29.3904)
+
+[node name="PineTree3" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -11.9053, 1.1661, 30.2116)
+
+[node name="PineTree6" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -50.0537, 1.1661, 4.93647)
+
+[node name="PineTree11" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -50.0537, 1.1661, 30.126)
+
+[node name="PineTree7" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -50.0537, 1.1661, 35.6894)
+
+[node name="PineTree8" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -38.5669, 1.1661, 35.8256)
+
+[node name="PineTree9" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -33.9702, 1.1661, 37.209)
+
+[node name="PineTree10" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("18_6ckoi")]
+transform = Transform3D(0.39, 0, 0, 0, 0.39, 0, 0, 0, 0.39, -35.8968, 1.1661, 28.219)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Preview/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18.1568)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Preview/SubViewportContainer/SubViewport/StaticBody3D"]
 transform = Transform3D(18.47, 0, 0, 0, 18.47, 0, 0, 0, 18.47, -97.2068, 15.8005, -10.8208)
 shape = SubResource("BoxShape3D_37wf3")
+debug_color = Color(0.92, 0, 0.674667, 1)
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+[node name="StaticBody3D2" type="StaticBody3D" parent="Preview/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16.1022)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Preview/SubViewportContainer/SubViewport/StaticBody3D2"]
 transform = Transform3D(18.47, 0, 0, 0, 18.47, 0, 0, 0, 18.47, -97.2068, 15.8005, 10.9777)
 shape = SubResource("BoxShape3D_37wf3")
+debug_color = Color(0.92, 0, 0.674667, 1)
 
-[node name="StaticBody3D4" type="StaticBody3D" parent="."]
+[node name="StaticBody3D4" type="StaticBody3D" parent="Preview/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.917, 0, 56.0597)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Preview/SubViewportContainer/SubViewport/StaticBody3D4"]
 transform = Transform3D(31.45, 0, 0, 0, 31.45, 0, 0, 0, 31.45, -79.3295, 0, -13.382)
 shape = SubResource("BoxShape3D_tks7g")
 
-[node name="BLock" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.917, 0, 56.0597)
+[node name="BLock4" type="StaticBody3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126.772, 0, 29.1203)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BLock"]
-transform = Transform3D(26.125, 0, 0, 0, 26.125, 0, 0, 0, 26.125, -185.21, 0, -13.3451)
-shape = SubResource("BoxShape3D_cl4fa")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Preview/SubViewportContainer/SubViewport/BLock4"]
+transform = Transform3D(24.08, 0, 0, 0, 24.08, 0, 0, 0, 24.08, -199.691, 0, 8.09175)
+shape = SubResource("BoxShape3D_2cu13")
+debug_color = Color(0.99, 0, 0.2805, 1)
 
-[node name="BLock2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.917, 0, 5.661)
+[node name="BLock5" type="StaticBody3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126.772, 0, 5.392)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BLock2"]
-transform = Transform3D(26.125, 0, 0, 0, 26.125, 0, 0, 0, 26.125, -185.21, 0, -13.3451)
-shape = SubResource("BoxShape3D_cl4fa")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Preview/SubViewportContainer/SubViewport/BLock5"]
+transform = Transform3D(24.08, 0, 0, 0, 24.08, 0, 0, 0, 24.08, -199.691, 0, -8.97844)
+shape = SubResource("BoxShape3D_2cu13")
+debug_color = Color(0.99, 0, 0.2805, 1)
 
-[node name="BLock3" type="StaticBody3D" parent="."]
+[node name="BLock3" type="StaticBody3D" parent="Preview/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 248.447, 0, 5.661)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BLock3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Preview/SubViewportContainer/SubViewport/BLock3"]
 transform = Transform3D(26.125, 0, 0, 0, 26.125, 0, 0, 0, 26.125, -185.21, 0, -13.3451)
 shape = SubResource("BoxShape3D_cl4fa")
+debug_color = Color(1, 0, 0.133333, 1)
 
-[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+[node name="StaticBody3D3" type="StaticBody3D" parent="Preview/SubViewportContainer/SubViewport"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -130.684, 0, 122.023)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
-transform = Transform3D(18.47, 0, 0, 0, 18.47, 0, 0, 0, 18.47, -97.2068, 15.8005, -34.5085)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Preview/SubViewportContainer/SubViewport/StaticBody3D3"]
+transform = Transform3D(18.47, 0, 0, 0, 18.47, 0, 0, 0, 18.47, -107.834, 15.8005, -34.5085)
 shape = SubResource("BoxShape3D_37wf3")
+debug_color = Color(0.92, 0, 0.674667, 1)
 
-[node name="FinalBossCam" type="Marker3D" parent="."]
+[node name="FinalBossCam" type="Marker3D" parent="Preview/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.9935, 49.5805, 15.8549)
 gizmo_extents = 6.01
 
-[node name="Escape" type="Marker3D" parent="."]
-transform = Transform3D(0.730138, -0.683299, 0, 0.683299, 0.730138, 0, 0, 0, 1, -113.157, 43.8906, 18.6562)
+[node name="Escape" type="Marker3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240.403, 32.132, -11.4844)
 gizmo_extents = 6.01
 
-[node name="ChosenOneCam" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.792, 7.98876, 31.1086)
+[node name="ChosenOneCam" type="Marker3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.6733, 5.63964, 31.1086)
 gizmo_extents = 6.01
 
-[node name="StaticBody3D5" type="StaticBody3D" parent="."]
+[node name="StaticBody3D5" type="StaticBody3D" parent="Preview/SubViewportContainer/SubViewport"]
 transform = Transform3D(11.53, 0, 0, 0, 11.53, 0, 0, 0, 11.53, 26.0765, 8.8615, 32.768)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D5"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Preview/SubViewportContainer/SubViewport/StaticBody3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0944948)
 shape = SubResource("BoxShape3D_j5xoq")
+debug_color = Color(0, 0.595, 0.7, 1)
 
-[node name="FinalBoss2" type="Area3D" parent="."]
+[node name="FinalBoss2" type="Area3D" parent="Preview/SubViewportContainer/SubViewport" node_paths=PackedStringArray("bgm", "finalBossCutsceneMarker", "scaryLights")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.599, -5.89817, -45.6571)
-script = ExtResource("19_cl4fa")
+script = SubResource("GDScript_j5xoq")
+bgm = NodePath("../../../../BGM")
+finalBossCutsceneMarker = NodePath("../FinalBossCam")
+scaryLights = NodePath("../../../../FinalBossLights")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FinalBoss2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Preview/SubViewportContainer/SubViewport/FinalBoss2"]
 transform = Transform3D(71.17, 0, 0, 0, 71.17, 0, 0, 0, 71.17, -67.7064, 11.5365, 38.0847)
 shape = SubResource("BoxShape3D_6ckoi")
+debug_color = Color(0, 0.595, 0.7, 1)
 
-[node name="Scarynoise1" type="AudioStreamPlayer" parent="FinalBoss2"]
+[node name="Scarynoise1" type="AudioStreamPlayer" parent="Preview/SubViewportContainer/SubViewport/FinalBoss2"]
 stream = ExtResource("17_6ckoi")
-volume_db = 18.431
+volume_db = -15.139
 pitch_scale = 2.46
 
-[node name="Area3D2" type="Area3D" parent="."]
+[node name="ChosenOne" type="Area3D" parent="Preview/SubViewportContainer/SubViewport" node_paths=PackedStringArray("finalBossCutsceneMarker", "scaryLights2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.24004, 0, 29.228)
-script = ExtResource("19_tks7g")
+script = SubResource("GDScript_2cu13")
+finalBossCutsceneMarker = NodePath("../FinalBossCam")
+scaryLights2 = NodePath("../../../../ChosenOne")
 
-[node name="ScaryNoise2" type="AudioStreamPlayer" parent="Area3D2"]
+[node name="ScaryNoise2" type="AudioStreamPlayer" parent="Preview/SubViewportContainer/SubViewport/ChosenOne"]
 stream = ExtResource("2_37wf3")
+volume_db = -13.823
 pitch_scale = 0.69
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Preview/SubViewportContainer/SubViewport/ChosenOne"]
 transform = Transform3D(11.53, 0, 0, 0, 11.53, 0, 0, 0, 11.53, 8.80029, 8.8615, 3.53997)
 shape = SubResource("BoxShape3D_j5xoq")
+debug_color = Color(0, 0.595, 0.7, 1)
 
-[node name="Node3D" parent="." instance=ExtResource("22_j5xoq")]
-transform = Transform3D(1.24, 0, 0, 0, 1.24, 0, 0, 0, 1.24, -67.6719, 0, 0)
+[node name="Node3D" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("22_j5xoq")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -87.7157, 0, 15.0309)
 
-[node name="Node3D2" parent="." instance=ExtResource("22_j5xoq")]
-transform = Transform3D(1.24, 0, 0, 0, 1.24, 0, 0, 0, 1.24, 29.0672, 0, 0)
-
-[connection signal="area_entered" from="Area3D" to="Area3D" method="_on_area_entered"]
-[connection signal="area_entered" from="FinalBoss" to="FinalBoss" method="_on_area_entered"]
-[connection signal="area_entered" from="FinalBoss2" to="FinalBoss2" method="_on_area_entered"]
-[connection signal="area_entered" from="Area3D2" to="Area3D2" method="_on_area_entered"]
+[connection signal="area_entered" from="Preview/SubViewportContainer/SubViewport/Area3D" to="Preview/SubViewportContainer/SubViewport/Area3D" method="_on_area_entered"]
+[connection signal="area_entered" from="Preview/SubViewportContainer/SubViewport/FinalBoss" to="Preview/SubViewportContainer/SubViewport/FinalBoss" method="_on_area_entered"]
+[connection signal="area_entered" from="Preview/SubViewportContainer/SubViewport/FinalBoss2" to="Preview/SubViewportContainer/SubViewport/FinalBoss2" method="_on_area_entered"]
+[connection signal="area_entered" from="Preview/SubViewportContainer/SubViewport/ChosenOne" to="Preview/SubViewportContainer/SubViewport/ChosenOne" method="_on_area_entered"]

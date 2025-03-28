@@ -1,0 +1,111 @@
+[gd_scene load_steps=12 format=3 uid="uid://c8unqy42ci1aa"]
+
+[ext_resource type="Shader" uid="uid://ck3hfip8j04ns" path="res://Game/1BIT_SHADER.gdshader" id="1_bk4sv"]
+[ext_resource type="FontFile" uid="uid://bnwv8pcflssa3" path="res://ui/mario_kart_ds/Mario-Kart-DS.ttf" id="2_56f5c"]
+[ext_resource type="Script" uid="uid://ncvrx6f8mc6j" path="res://Scripts/FPS.gd" id="3_bcivs"]
+[ext_resource type="PackedScene" uid="uid://byiwrnoah113n" path="res://ui/GameStartANIM.tscn" id="4_hxv2g"]
+[ext_resource type="PackedScene" uid="uid://brejidgy2nq2j" path="res://ui/Pausing.tscn" id="5_isdcr"]
+[ext_resource type="Material" uid="uid://t18do042j80c" path="res://MaterialTextures/Enviroment2.tres" id="7_br0ja"]
+[ext_resource type="Shader" uid="uid://b1hg6btlggl78" path="res://Shaders/uhhhhh.gdshader" id="8_scbov"]
+[ext_resource type="PackedScene" uid="uid://7l5yih8w56c3" path="res://Player/PlayerCamera.tscn" id="10_5kf4j"]
+[ext_resource type="PackedScene" uid="uid://bgkmd80vrnlao" path="res://Player/COWBOYPLAYER(v4).tscn" id="11_otkyp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pyaqb"]
+shader = ExtResource("1_bk4sv")
+shader_parameter/dithering = true
+shader_parameter/dithering_size = 2
+shader_parameter/resolution_scale = 2
+shader_parameter/threshold = 53.325
+shader_parameter/white = Color(1, 1, 1, 1)
+shader_parameter/black = Color(0.295867, 0.295866, 0.295866, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mspvt"]
+shader = ExtResource("8_scbov")
+shader_parameter/speedScale = 50.875
+shader_parameter/clipPosition = 0.2
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Preview" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Preview"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_pyaqb")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="Preview/SubViewportContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Preview/SubViewportContainer/Control"]
+layout_mode = 2
+offset_left = 26.0
+offset_top = 376.0
+offset_right = 146.0
+offset_bottom = 426.0
+theme_override_fonts/font = ExtResource("2_56f5c")
+theme_override_font_sizes/font_size = 60
+text = "FPS"
+script = ExtResource("3_bcivs")
+
+[node name="Opener" parent="Preview/SubViewportContainer" instance=ExtResource("4_hxv2g")]
+z_index = 1
+
+[node name="SubViewport" type="SubViewport" parent="Preview/SubViewportContainer"]
+handle_input_locally = false
+scaling_3d_mode = 0
+canvas_item_default_texture_filter = 0
+size = Vector2i(1024, 768)
+render_target_update_mode = 4
+
+[node name="Pausing" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("5_isdcr")]
+
+[node name="Floor" type="CSGCombiner3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(-3.40497e-08, -35.6877, 0, 0.778967, -1.55995e-06, 0, 0, 0, 17.9162, 0, 1.15208, 10)
+material_overlay = ExtResource("7_br0ja")
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="CSGBox3D" parent="Preview/SubViewportContainer/SubViewport/Floor"]
+transform = Transform3D(11.3414, 1.71531e-09, 0, -2.18492e-13, 9.38252, 0, 0, 0, 8.72365, -1.05782, -4.02329, -0.131066)
+size = Vector3(0.0967279, 0.0879574, 0.176527)
+
+[node name="ColorRect" type="ColorRect" parent="Preview/SubViewportContainer/SubViewport"]
+visible = false
+material = SubResource("ShaderMaterial_mspvt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+mouse_force_pass_scroll_events = false
+color = Color(0, 0, 0, 1)
+
+[node name="CamTarget2" type="Marker3D" parent="Preview/SubViewportContainer/SubViewport"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 7.53036, 3.74131, 20.8522)
+gizmo_extents = 4.42
+
+[node name="CameraSet" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("10_5kf4j")]
+transform = Transform3D(-4.37114e-08, 0, 0.999999, 0, 0.999999, 0, -0.999999, 0, -4.37114e-08, -41.7651, 0.966247, 14.3488)
+target = NodePath("../Cowboy")
+speed = 20.0
+enabled = true
+
+[node name="Cowboy" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("11_otkyp")]
+transform = Transform3D(-3.0598e-10, 0, 0.007, 0, 0.007, 0, -0.007, 0, -3.0598e-10, 137.737, 2.97502, 12.0964)
+metadata/_edit_group_ = true

@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://46ebhd2h5300"
+path="res://.godot/imported/gameOverdialogue.dialogue-c0035cf7ff1c7bc7fcd2d5b46f054dcd.tres"
+
+[deps]
+
+source_file="res://gameOverdialogue.dialogue"
+dest_files=["res://.godot/imported/gameOverdialogue.dialogue-c0035cf7ff1c7bc7fcd2d5b46f054dcd.tres"]
+
+[params]
+
+defaults=true

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://04h1w2ualr2c"]
 
 [ext_resource type="PackedScene" uid="uid://cmqye8nidnr6b" path="res://Buildings/Buildings2.fbx" id="1_aqxcg"]
-[ext_resource type="Material" uid="uid://mpycckwjukao" path="res://MaterialTextures/Buildings.tres" id="2_27nxn"]
+[ext_resource type="Material" uid="uid://mpycckwjukao" path="res://trash/Buildings.tres" id="2_27nxn"]
 
 [node name="Buildings2" instance=ExtResource("1_aqxcg")]
 transform = Transform3D(1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0, 1.86682, 0)
