@@ -5,8 +5,10 @@
 [resource]
 diffuse_mode = 3
 specular_mode = 1
+disable_ambient_light = true
+disable_fog = true
 albedo_texture = ExtResource("1_42l6y")
-metallic_specular = 0.0
+metallic_specular = 0.6
 roughness = 0.0
 uv1_scale = Vector3(0.06, 0.06, 0.06)
 uv1_triplanar = true

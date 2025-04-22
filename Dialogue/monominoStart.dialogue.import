@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://b8qhtt27psps6"
+path="res://.godot/imported/monominoStart.dialogue-e1d4b794d8b13944aae5a095421982e4.tres"
+
+[deps]
+
+source_file="res://Dialogue/monominoStart.dialogue"
+dest_files=["res://.godot/imported/monominoStart.dialogue-e1d4b794d8b13944aae5a095421982e4.tres"]
+
+[params]
+
+defaults=true

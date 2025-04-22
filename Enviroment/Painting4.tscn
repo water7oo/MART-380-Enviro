@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://bpvge4o5f5485"]
+
+[ext_resource type="Texture2D" uid="uid://cjgjakrocgncj" path="res://Enviroment/Jack_Mitchell.jpg" id="1_ulxk2"]
+[ext_resource type="Script" uid="uid://i4clqf3800g" path="res://Enemy/interaction_label_painting4.gd" id="2_4qs6s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4qs6s"]
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+disable_fog = true
+albedo_texture = ExtResource("1_ulxk2")
+uv1_scale = Vector3(1.88, 1.88, 1.88)
+uv1_offset = Vector3(-0.45, 0.05, 0)
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_7vfop"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kjpto"]
+size = Vector3(1.64185, 1.38965, 1)
+
+[sub_resource type="Animation" id="Animation_jrgc8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 4.34723, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gh2ft"]
+resource_name = "floatingInteract"
+length = 0.9045
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.433333, 0.833333, 5.46667),
+"transitions": PackedFloat32Array(2.37841, 0.297302, 2.37841, 1.93187),
+"update": 0,
+"values": [Vector3(0, 1.264, 0), Vector3(0, 1.108, 0), Vector3(0, 1.264, 0), Vector3(0, 4.43447, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jrgc8"]
+_data = {
+&"RESET": SubResource("Animation_jrgc8"),
+&"floatingInteract": SubResource("Animation_gh2ft")
+}
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 1.35, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_4qs6s")
+mesh = SubResource("BoxMesh_7vfop")
+
+[node name="Paint4Area" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Paint4Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.812622, -0.194824, 0)
+shape = SubResource("BoxShape3D_kjpto")
+
+[node name="interactionLabel" type="Label3D" parent="."]
+transform = Transform3D(0.505, 0, 0, 0, 0.505, 0, 0, 0, 0.505, 0, 4.34723, 0)
+billboard = 1
+texture_filter = 0
+text = "▼"
+font_size = 130
+outline_size = 22
+uppercase = true
+script = ExtResource("2_4qs6s")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="interactionLabel"]
+libraries = {
+&"": SubResource("AnimationLibrary_jrgc8")
+}

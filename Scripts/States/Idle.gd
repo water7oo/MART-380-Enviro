@@ -30,7 +30,30 @@ func _update(delta: float) -> void:
 		Global.is_talking = true
 		Global.dialogue_just_ended = false  # Set flag to true to prevent re-triggering
 		agent.state_machine.dispatch("to_talk")  # Enter talk state
-
+	elif Global.isPainting1 and not Global.is_talking and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not Global.dialogue_just_ended:
+		Global.is_talking = true
+		Global.dialogue_just_ended = false  # Set flag to true to prevent re-triggering
+		agent.state_machine.dispatch("to_talk")  # Enter talk state
+	elif Global.isPainting2 and not Global.is_talking and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not Global.dialogue_just_ended:
+		Global.is_talking = true
+		Global.dialogue_just_ended = false  # Set flag to true to prevent re-triggering
+		agent.state_machine.dispatch("to_talk")  # Enter talk state
+	elif Global.isPainting3 and not Global.is_talking and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not Global.dialogue_just_ended:
+		Global.is_talking = true
+		Global.dialogue_just_ended = false  # Set flag to true to prevent re-triggering
+		agent.state_machine.dispatch("to_talk")  # Enter talk state
+	elif Global.isPainting4 and not Global.is_talking and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not Global.dialogue_just_ended:
+		Global.is_talking = true
+		Global.dialogue_just_ended = false  # Set flag to true to prevent re-triggering
+		agent.state_machine.dispatch("to_talk")  # Enter talk state
+	elif Global.isPainting5 and not Global.is_talking and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not Global.dialogue_just_ended:
+		Global.is_talking = true
+		Global.dialogue_just_ended = false  # Set flag to true to prevent re-triggering
+		agent.state_machine.dispatch("to_talk")  # Enter talk state
+	elif Global.isPainting6 and not Global.is_talking and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not Global.dialogue_just_ended:
+		Global.is_talking = true
+		Global.dialogue_just_ended = false  # Set flag to true to prevent re-triggering
+		agent.state_machine.dispatch("to_talk")  # Enter talk state
 func player_idle(delta: float) -> void:
 	if Global.can_move:
 		agent.move_and_slide()

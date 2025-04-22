@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://dr68vy0612bej"
+path="res://.godot/imported/leavingHeaven.dialogue-e8151dabe2d06165a1cd5770ee4d3df6.tres"
+
+[deps]
+
+source_file="res://Dialogue/leavingHeaven.dialogue"
+dest_files=["res://.godot/imported/leavingHeaven.dialogue-e8151dabe2d06165a1cd5770ee4d3df6.tres"]
+
+[params]
+
+defaults=true

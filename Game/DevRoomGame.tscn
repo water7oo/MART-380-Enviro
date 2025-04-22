@@ -304,7 +304,7 @@ func _on_dialogue_ended(resource):
 	
 "
 
-[node name="TRAINING" type="Node3D"]
+[node name="HELL" type="Node3D"]
 
 [node name="EndGame" type="Node3D" parent="."]
 script = ExtResource("1_2cu13")
@@ -381,6 +381,7 @@ omni_range = 109.409
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_td47c")
 volume_db = -28.304
+autoplay = true
 mix_target = 2
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
@@ -401,7 +402,7 @@ visible = false
 light_energy = 7.356
 shadow_enabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_c0qo6")
 
 [node name="FogVolume" type="FogVolume" parent="."]
@@ -557,13 +558,12 @@ gizmo_extents = 4.42
 transform = Transform3D(-4.37113e-08, 0, -0.999999, 0, 0.999999, 0, 0.999999, 0, -4.37113e-08, 142.693, 3.991, 8.63043)
 target = NodePath("../Cowboy")
 speed = 20.0
-enabled = true
 
 [node name="key" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("14_j5xoq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.893, 2.29768, -9.83723)
 
 [node name="Cowboy" parent="Preview/SubViewportContainer/SubViewport" instance=ExtResource("10_tkxv2")]
-transform = Transform3D(-3.05979e-10, 0, -0.007, 0, 0.007, 0, 0.007, 0, -3.05979e-10, 141.231, 2.97502, 14.923)
+transform = Transform3D(-3.0598e-10, 0, -0.007, 0, 0.007, 0, 0.007, 0, -3.0598e-10, 141.231, 2.97502, 14.923)
 metadata/_edit_group_ = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Preview/SubViewportContainer/SubViewport/Cowboy"]

@@ -23,6 +23,15 @@ var pleaseGiveKeys = false
 var ChosenOne = false
 var startGame = false
 var tryingtoEscape = false
+var isPainting1: bool = false
+var isPainting2: bool = false
+var isPainting3: bool = false
+var isPainting4: bool = false
+var isPainting5: bool = false
+var isPainting6: bool = false
+var isInHeaven: bool = false
+var isAngelsFree:bool = false
+
 
 var endGame = false
 @export var mouse_sensitivity: float = 0.005

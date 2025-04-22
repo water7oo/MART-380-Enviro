@@ -25,8 +25,8 @@ func _ready():
 	target_node = get_node(target) as Node3D
 	
 
-		
-	#original_global_transform = target_node.global_transform
+
+
 
 func _unhandled_input(event):
 	#if Input.is_action_just_pressed("quit_game"):

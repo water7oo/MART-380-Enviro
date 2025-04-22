@@ -20,6 +20,7 @@ extends CharacterBody3D
 var talkNPC = Input.is_action_pressed("NPC")
 
 
+
 func _ready():
 	initialize_state_machine()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -91,6 +92,26 @@ func _on_dialogue_npc_area_entered(area):
 		print("Entered NPC Area")
 		Global.is_near_npc = true
 		Global.current_npc = area.get_parent() as Node3D
+	elif area.name == "Paint1Area" && !Global.is_talking:
+		print("Player is in front of painting")
+		Global.isPainting1 = true
+	elif area.name == "Paint2Area" && !Global.is_talking:
+		print("Player is in front of painting")
+		Global.isPainting2 = true
+	elif area.name == "Paint3Area" && !Global.is_talking:
+		print("Player is in front of painting")
+		Global.isPainting3 = true
+	elif area.name == "Paint4Area" && !Global.is_talking:
+		print("Player is in front of painting")
+		Global.isPainting4 = true
+		
+	elif area.name == "Paint5Area" && !Global.is_talking:
+		print("Player is in front of painting")
+		Global.isPainting5 = true
+	elif area.name == "Paint6Area" && !Global.is_talking:
+		print("Player is in front of painting")
+		Global.isPainting6 = true
+
 
 
 func _on_dialogue_npc_area_exited(area):
@@ -99,10 +120,44 @@ func _on_dialogue_npc_area_exited(area):
 		Global.is_near_npc = false
 		Global.is_talking = false
 		Global.current_npc = null  # Clear the NPC reference
-
+	elif area.name == "Paint1Area":
+		print("Exited NPC Area")
+		Global.isPainting1 = false
+		Global.is_talking = false
+		Global.current_npc = null  # Clear the NPC reference
+	elif area.name == "Paint2Area":
+		print("Exited NPC Area")
+		Global.isPainting2 = false
+		Global.is_talking = false
+		Global.current_npc = null  # Clear the NPC reference
+	elif area.name == "Paint3Area":
+		print("Exited NPC Area")
+		Global.isPainting3 = false
+		Global.is_talking = false
+		Global.current_npc = null  # Clear the NPC reference
+	elif area.name == "Paint4Area":
+		print("Exited NPC Area")
+		Global.isPainting4 = false
+		Global.is_talking = false
+		Global.current_npc = null  # Clear the NPC reference
+	elif area.name == "Paint5Area":
+		print("Exited NPC Area")
+		Global.isPainting5 = false
+		Global.is_talking = false
+		Global.current_npc = null  # Clear the NPC reference
+	elif area.name == "Paint6Area":
+		print("Exited NPC Area")
+		Global.isPainting6 = false
+		Global.is_talking = false
+		Global.current_npc = null  # Clear the NPC reference
 
 func _physics_process(delta: float) -> void:
 	playerGravity(delta)
+	#print(Global.isAngelsFree)
 	
 	#print(Global.is_near_npc)
 	
+
+
+func _on_leaving_heaven_area_entered(area):
+	pass # Replace with function body.

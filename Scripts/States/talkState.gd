@@ -19,6 +19,10 @@ func _enter(npc: Node3D = null, dialogue: Control = null) -> void:
 	Global.dialogue_just_ended = false  # Reset the flag to allow future interactions
 
 	npc_parent = Global.current_npc as Node3D
+	
+	# Connect to the dialogue_ended signal
+	if not DialogueManager.dialogue_ended.is_connected(_on_dialogue_ended):
+		DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
 
 	if npc_parent:
 		# Save the NPC's current rotation
@@ -27,18 +31,34 @@ func _enter(npc: Node3D = null, dialogue: Control = null) -> void:
 		npc_parent.rotate_y(PI)  
 		target_rotation = npc_parent.global_transform.basis.get_rotation_quaternion()
 		
-		# Connect to the dialogue_ended signal
-		if not DialogueManager.dialogue_ended.is_connected(_on_dialogue_ended):
-			DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
-		
 		# Choose the dialogue based on the 'pleaseGiveKeys' condition
 		if Global.pleaseGiveKeys:
 			
 			DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/AfterFinalBossNPC.dialogue"), "start")
+		elif Global.isInHeaven:
+			if Global.isAngelsFree:
+				DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/hmain2.dialogue"), "start")
+			else:
+				DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/hmain.dialogue"), "Start")
+		
 		else:
 			DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/main.dialogue"), "Start")
 	
 
+	elif Global.isPainting1:
+		DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/painting1.dialogue"), "start")
+	elif Global.isPainting2:
+		DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/painting2.dialogue"), "start")
+	elif Global.isPainting3:
+		DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/painting3.dialogue"), "start")
+	elif Global.isPainting4:
+		DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/painting4.dialogue"), "start")
+	elif Global.isPainting5:
+		DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/painting5.dialogue"), "start")
+	elif Global.isPainting6:
+		DialogueManager.show_example_dialogue_balloon(load("res://Dialogue/painting6.dialogue"), "start")
+	
+		
 func _process(delta: float) -> void:
 	pass
 

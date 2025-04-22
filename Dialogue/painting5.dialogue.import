@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://unglnnd6ot1x"
+path="res://.godot/imported/painting5.dialogue-7efa9b26bc1bbbf5429d6531751ff432.tres"
+
+[deps]
+
+source_file="res://Dialogue/painting5.dialogue"
+dest_files=["res://.godot/imported/painting5.dialogue-7efa9b26bc1bbbf5429d6531751ff432.tres"]
+
+[params]
+
+defaults=true

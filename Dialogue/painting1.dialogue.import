@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://dvnoik2madook"
+path="res://.godot/imported/painting1.dialogue-eb16839ffd6e99e1d63f8ccbd8fda39f.tres"
+
+[deps]
+
+source_file="res://Dialogue/painting1.dialogue"
+dest_files=["res://.godot/imported/painting1.dialogue-eb16839ffd6e99e1d63f8ccbd8fda39f.tres"]
+
+[params]
+
+defaults=true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://bgkmd80vrnlao"]
+[gd_scene load_steps=42 format=4 uid="uid://bgkmd80vrnlao"]
 
 [ext_resource type="Script" uid="uid://cllxit7uok2xf" path="res://Scripts/player2.gd" id="1_vkma1"]
 [ext_resource type="Material" uid="uid://dcakvymmosyhp" path="res://MaterialTextures/COWBOY.tres" id="2_dh6mo"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://dfrhd0jw7xuqs" path="res://Scripts/States/recover_state.gd" id="11_3apqd"]
 [ext_resource type="PackedScene" uid="uid://botd2e2pvg6ce" path="res://Player/COWBOY(NEW.V4).tscn" id="11_4svr5"]
 [ext_resource type="Script" uid="uid://lq0hjyygphsh" path="res://Scripts/States/talkState.gd" id="11_why3t"]
+[ext_resource type="Script" uid="uid://ckolx8lq71vbk" path="res://Player/startgame.gd" id="16_i4tce"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fvqnm"]
 custom_solver_bias = 0.305
@@ -1115,6 +1116,9 @@ transform = Transform3D(1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, -1.50914
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDialogue"]
 transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, 0, 116.511, 0)
 shape = SubResource("BoxShape3D_3apqd")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("16_i4tce")
 
 [connection signal="area_entered" from="RootNode/AttackBox" to="." method="_on_attack_box_area_entered"]
 [connection signal="area_exited" from="RootNode/AttackBox" to="." method="_on_attack_box_area_exited"]

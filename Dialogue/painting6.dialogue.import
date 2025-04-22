@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://dh23embsb6x74"
+path="res://.godot/imported/painting6.dialogue-1402c4dfbaff084a9b6c4560b6867f20.tres"
+
+[deps]
+
+source_file="res://Dialogue/painting6.dialogue"
+dest_files=["res://.godot/imported/painting6.dialogue-1402c4dfbaff084a9b6c4560b6867f20.tres"]
+
+[params]
+
+defaults=true

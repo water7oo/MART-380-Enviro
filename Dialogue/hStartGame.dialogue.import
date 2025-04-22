@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://jqpuwj1nhpvd"
+path="res://.godot/imported/hStartGame.dialogue-878103b2f58689ec09fd44269650d014.tres"
+
+[deps]
+
+source_file="res://Dialogue/hStartGame.dialogue"
+dest_files=["res://.godot/imported/hStartGame.dialogue-878103b2f58689ec09fd44269650d014.tres"]
+
+[params]
+
+defaults=true

@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://bt8k5rijiynix"
+path="res://.godot/imported/angelEyes.dialogue-1149b03f7ba612b67a8ed7fd0c3a16db.tres"
+
+[deps]
+
+source_file="res://Dialogue/angelEyes.dialogue"
+dest_files=["res://.godot/imported/angelEyes.dialogue-1149b03f7ba612b67a8ed7fd0c3a16db.tres"]
+
+[params]
+
+defaults=true

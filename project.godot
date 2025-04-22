@@ -12,7 +12,7 @@ config_version=5
 
 config/name="MART-380 PROJECT"
 config/tags=PackedStringArray("3d", "bloodrush", "thirdperson")
-run/main_scene="uid://b2ud3ury8epgi"
+run/main_scene="uid://bv8g46axm5rvd"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 run/scale=0.5
@@ -184,7 +184,7 @@ s={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://Dialogue/main.dialogue", "res://Dialogue/StartGame.dialogue", "res://Dialogue/FinalBoss.dialogue", "res://Dialogue/AfterFinalBossNPC.dialogue", "res://Dialogue/ChosenOnedialogue.dialogue", "res://Dialogue/ChosenOne2dialogue.dialogue", "res://Dialogue/FinalBoss2.dialogue", "res://gameOverdialogue.dialogue")
+locale/translations_pot_files=PackedStringArray("res://Dialogue/main.dialogue", "res://Dialogue/StartGame.dialogue", "res://Dialogue/FinalBoss.dialogue", "res://Dialogue/AfterFinalBossNPC.dialogue", "res://Dialogue/ChosenOnedialogue.dialogue", "res://Dialogue/ChosenOne2dialogue.dialogue", "res://Dialogue/FinalBoss2.dialogue", "res://gameOverdialogue.dialogue", "res://Dialogue/hStartGame.dialogue", "res://Dialogue/painting1.dialogue", "res://Dialogue/painting2.dialogue", "res://Dialogue/painting3.dialogue", "res://Dialogue/painting4.dialogue", "res://Dialogue/painting5.dialogue", "res://Dialogue/painting6.dialogue", "res://Dialogue/hmain.dialogue", "res://Dialogue/angelEyes.dialogue", "res://Dialogue/hmain2.dialogue", "res://Dialogue/monominoStart.dialogue", "res://Dialogue/leavingHeaven.dialogue")
 
 [physics]
 
